@@ -36,8 +36,11 @@
 	}
 
 	/* Menu Class Utilities */
+	nav.bottom-navbar > a.router-link-exact-active {
+		@apply transition-all duration-1000 p-3 flex justify-center;
+	}
 
 	nav.bottom-navbar > a.router-link-exact-active {
-		@apply fill-white;
+		@apply bg-white rounded-full fill-primary -translate-y-8 box-border text-primary border-2 border-primary;
 	}
 }
