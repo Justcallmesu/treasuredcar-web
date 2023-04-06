@@ -37,7 +37,7 @@
 
 	/* Menu Class Utilities */
 	nav.bottom-navbar div a {
-		@apply transition-all duration-1000 p-3 absolute left-0 -top-2 border-none;
+		@apply transition-all duration-1000 fill-white p-3 absolute left-0 -top-2 border-none;
 	}
 
 	nav.bottom-navbar div a.router-link-exact-active {
