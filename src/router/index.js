@@ -4,6 +4,7 @@ import BasePage from "../components/BasePage.vue";
 const routes = [
   {
     component: BasePage,
+    path: "/",
     children: [
       {
         name: "home",
