@@ -1,6 +1,5 @@
 <template>
-    <header class="px-5 py-5 sticky top-0 w-full flex justify-between items-center shadow-lg">
-        <div class="w-full h-full absolute bg-white left-0 opacity-50 blur-lg -z-10"></div>
+    <header class="px-5 py-5 fixed top-0 w-full bg-[#efefef] flex z-10 justify-between items-center shadow-lg">
         <router-link to="/">
             <h1 class="font-poppins font-bold tracking-wide text-xl text-[#3E3E3E]">Treasured<span class="text-primary">Car</span></h1>
         </router-link>

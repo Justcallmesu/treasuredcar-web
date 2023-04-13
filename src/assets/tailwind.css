@@ -5,11 +5,12 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 @layer base {
 	body,
 	html {
-		@apply p-0 m-0 min-h-screen;
+		@apply p-0 m-0 min-h-screen font-poppins;
 	}
 }
 
