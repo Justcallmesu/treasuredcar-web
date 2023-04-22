@@ -44,4 +44,11 @@
 	nav.bottom-navbar div a.router-link-exact-active {
 		@apply bg-white rounded-full fill-primary -translate-y-8 box-border text-primary;
 	}
+
+	/* Vertical Text */
+	.writing-mode-vlr {
+		display: flex;
+		align-items: center;
+		writing-mode: vertical-rl;
+	}
 }
