@@ -1,5 +1,5 @@
 <template>
-    <div class="h-[5000px]">
+    <div class="">
         <TheHeader />
         <router-view v-slot="{Component}">
         <transition appear-active-class="Base-Appear-active" appear mode="out-in" name="Base">
@@ -31,17 +31,14 @@ export default {
 }
 
 /* Transitions */
-.Base-enter-active{
-    transition: 1s all ease-in-out;
-}
+.Base-enter-active,
 .Base-leave-active{
     transition: 1s all ease-in-out;
 }
-.Base-leave-to{
-    transform: translateX(-100vw);
-}
+.Base-leave-to , 
 .Base-enter-from{
-    transform: translateX(100vw);
+    opacity:0;
+    transform: translateX(-100vw);
 }
 
 /* Key Frames */
