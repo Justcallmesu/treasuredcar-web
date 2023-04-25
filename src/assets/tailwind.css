@@ -64,4 +64,9 @@
 		align-items: center;
 		writing-mode: vertical-rl;
 	}
+
+	/* Car Details Image Collage */
+	.image-collage-active {
+		@apply border-primary border-[3px];
+	}
 }
