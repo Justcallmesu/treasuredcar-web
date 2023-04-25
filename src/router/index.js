@@ -22,6 +22,11 @@ const routes = [
         component: () => import("../components/Page/MyAccountPage.vue")
       },
       {
+        name: "details",
+        path: "/car/:_id",
+        component: () => import("../components/Page/CarsDetails.vue")
+      },
+      {
         path: "/:path(.*)*",
         redirect: "/"
       }

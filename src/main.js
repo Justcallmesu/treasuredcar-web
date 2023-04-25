@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from "./store/main.js"
 import './assets/tailwind.css'
 
 // Components
@@ -17,6 +18,7 @@ app.component('BaseCard', BaseCard);
 
 // Plugins and Extensions
 app.use(router);
+app.use(store);
 
 
 // Mount

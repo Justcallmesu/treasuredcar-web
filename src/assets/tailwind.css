@@ -28,7 +28,7 @@
 	}
 
 	.card-header > img {
-		@apply w-full h-52 object-cover;
+		@apply w-full h-52 object-scale-down;
 	}
 
 	.card-content {
