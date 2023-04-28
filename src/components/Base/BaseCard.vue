@@ -8,8 +8,8 @@
                 <h4 class="text-xl">{{ cardData.name }}</h4>
                 <h4 class="text-lg">Rp {{ cardData.price.toLocaleString("id-ID") }}</h4>
             </div>
-            <div class="flex justify-between font-semibold items-center">
-                <button class="mt-2 px-5 py-2 bg-primary text-xl rounded-xl hover:opacity-90">
+            <div class="flex justify-between items-center">
+                <button class="mt-2 px-5 py-2 bg-primary text-xl rounded-xl font-semibold hover:opacity-90" @click="movePage()">
                     <p class="text-white">
                         Details
                     </p>
@@ -20,12 +20,14 @@
 </template>
 
 <script>
+import axios from "axios";
 export default{
     props:{
         cardData:{
             type:Object,
             required:true
-        }
+        },
+        
     },
     computed:{
         getImage(){
@@ -33,12 +35,12 @@ export default{
                 return `${process.env.VUE_APP_serverURL}/cars/${this.cardData.imageCover}`;
             }
             return `${process.env.VUE_APP_serverURL}/cars/car-default.png`; 
-        }
+        },
     },
     methods:{
         movePage(){
             this.$router.push({name:"details",params:{_id:this.cardData._id}});
-        }
+        },
     }
 }
 </script>
