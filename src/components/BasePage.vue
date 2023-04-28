@@ -11,13 +11,11 @@
 </template>
 
 <script>
+// Components
 import TheBottomBar from './Layout/TheBottomBar.vue'
+
+
 export default {
-    data() {
-        return {
-            test: "Okay Then"
-        }
-    },
     components: {
         TheBottomBar
     }
