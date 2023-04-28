@@ -6,7 +6,7 @@
             before:h-1 before:w-16 before:content-[''] before:bg-white 
             font-semibold tracking-[0.2rem] text-3xl font-bebasNeue relative">We Provide <span class="text-primary">Second <br/> Cars</span> For Purchase</h1>
             <h3 class="mt-5 mb-20">Purchase directly from local suppliers. no commission, no mark-ups</h3>
-            <SearchCard></SearchCard>
+            <SearchCard class="text-gray-500"></SearchCard>
             <HeroGalleries/>
         </div>
         <CarList/>
