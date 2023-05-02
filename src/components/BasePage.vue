@@ -2,10 +2,10 @@
     <div class="">
         <TheHeader />
         <router-view v-slot="{Component}">
-        <transition appear-active-class="Base-Appear-active" appear mode="out-in" name="Base">
-                <component :is="Component"></component>
-        </transition>
-    </router-view>
+            <transition appear-active-class="Base-Appear-active" appear mode="out-in" name="Base">
+                    <component :is="Component"></component>
+            </transition>
+        </router-view>
         <TheBottomBar />
     </div>
 </template>

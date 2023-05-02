@@ -31,7 +31,11 @@
         </section>
         <div class="p-10 py-5 flex flex-col-reverse md:flex-col">
             <h1 class="font-poppins font-bold tracking-wide text-xl text-[#3E3E3E]">Treasured<span class="text-primary">Car</span></h1>
-            <router-view></router-view>
+                <router-view v-slot="{ Component }">
+                    <transition name="fade" mode="out-in">
+                        <component :is="Component"></component>
+                    </transition>
+                </router-view>
         </div>
     </main>
 </template>
