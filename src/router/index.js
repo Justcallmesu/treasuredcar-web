@@ -1,9 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BasePage from "../components/BasePage.vue";
+import BaseMainPage from "../components/BasePage.vue";
+import BaseAuthPage from "../components/BaseAuthPage.vue";
+
+// Store
+import store from "../store/main.js";
 
 const routes = [
   {
-    component: BasePage,
+    path: "/auth/",
+    component: BaseAuthPage,
+    redirect: "/auth/login",
+    meta: {
+      isLoggedIn: false
+    },
+    children: [
+      {
+        name: "login",
+        path: "/auth/login",
+        component: () => import("../components/Page/auth/LoginPage.vue")
+      },
+      {
+        name: "register",
+        path: "/auth/register",
+        component: () => import("../components/Page/auth/RegisterPage.vue")
+      },
+    ]
+  },
+  {
+    component: BaseMainPage,
     path: "/",
     children: [
       {
@@ -26,17 +50,26 @@ const routes = [
         path: "/car/:_id",
         component: () => import("../components/Page/CarsDetails.vue")
       },
-      {
-        path: "/:path(.*)*",
-        redirect: "/"
-      }
     ]
-  }
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+
+  const { meta } = to;
+
+  if (!("isLoggedIn" in meta)) return next();
+
+  if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
+
+  if (!meta.isLoggedIn && store.getters["user/isLoggedIn"]) return next("/");
+
+  return next();
 })
 
 export default router

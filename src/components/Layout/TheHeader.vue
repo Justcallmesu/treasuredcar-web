@@ -3,16 +3,29 @@
         <router-link to="/">
             <h1 class="font-poppins font-bold tracking-wide text-xl text-[#3E3E3E]">Treasured<span class="text-primary">Car</span></h1>
         </router-link>
-        <div class="relative hidden md:block">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fefefe" class="bi bi-search absolute top-1/4 left-3" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
-            <input type="text" name="search" id="search" class="bg-primary text-[#fefefe] focus:border-none focus:outline-none pl-8 px-4 py-1 box-border w-64 rounded-3xl" autocomplete="off">
+        <div class="hidden md:flex md:flex-row md:gap-10">
+            <div class="flex flex-row gap-5 items-center">
+                <i class="bi bi-search text-gray-800 text-2xl"></i>
+                <i class="bi bi-cart text-gray-800 text-2xl" v-if="isLoggedIn"></i>
+                <i class="bi bi-person text-gray-800 text-3xl" v-if="isLoggedIn"></i>
+            </div>
+            <div class="flex flex-row gap-5 items-center" v-if="!isLoggedIn">
+                <router-link :to="{ name: 'login' }" class="btn__cta">Login</router-link>
+                <router-link :to="{ name: 'register' }" class="btn__cta">Register</router-link>
+            </div>
         </div>
     </header>
 </template>
 
 
 <script>
-    export default{
-        
+import { createNamespacedHelpers } from 'vuex';
+
+const {mapGetters} = createNamespacedHelpers("user");
+
+export default{
+    computed:{
+        ...mapGetters(["isLoggedIn"])
     }
+}
 </script>

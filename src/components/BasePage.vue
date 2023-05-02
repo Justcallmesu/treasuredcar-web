@@ -2,22 +2,20 @@
     <div class="">
         <TheHeader />
         <router-view v-slot="{Component}">
-        <transition appear-active-class="Base-Appear-active" appear mode="out-in" name="Base">
-                <component :is="Component"></component>
-        </transition>
-    </router-view>
+            <transition appear-active-class="Base-Appear-active" appear mode="out-in" name="Base">
+                    <component :is="Component"></component>
+            </transition>
+        </router-view>
         <TheBottomBar />
     </div>
 </template>
 
 <script>
+// Components
 import TheBottomBar from './Layout/TheBottomBar.vue'
+
+
 export default {
-    data() {
-        return {
-            test: "Okay Then"
-        }
-    },
     components: {
         TheBottomBar
     }
