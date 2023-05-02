@@ -1,7 +1,7 @@
 <template>
-    <main class="mt-10 grid grid-cols-2 gap-x-10">
+    <main class="mt-10 grid md:grid-cols-2 gap-x-10">
         <!-- Car Information -->
-        <section class="flex flex-col gap-5">
+        <article class="flex flex-col gap-5">
             <section>
                 <h1 class="text-3xl text-white font-semibold px-2 py-2 bg-primary">Car Information</h1>
                 <div class="grid grid-cols-2 gap-x-20 gap-y-5 px-2 py-2">
@@ -49,7 +49,7 @@
                     </div>
                 </section>
             </section>
-        </section>
+        </article>
         <section>
             <h1 class="text-3xl text-white font-semibold px-2 py-2 bg-primary">Seller Description</h1>
             <section class="px-2 py-2">

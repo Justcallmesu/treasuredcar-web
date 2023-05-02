@@ -1,7 +1,7 @@
 <template>
     <div class="mt-24 px-5 pb-20 md:px-20">
         <summary class="flex flex-col gap-10 md:gap-20 md:flex-row">
-            <div class="md:w-1/2 h-full rounded-lg overflow-hidden" v-if="car">
+            <div class="md:w-1/2 h-full rounded-lg" v-if="car">
                 <CarCollage :car="car"/>
             </div>
             <div class="md:mt-0">

@@ -1,13 +1,11 @@
 <template>
     <div>
         <img :src="getImg" alt="" class="mix-blend-multiply w-full h-80 object-contain">
-        <section v-if="car.image">
-            <div class="grid h-52 w-full p-5 gap-10 grid-rows-1 grid-flow-col-dense overflow-x-scroll overflow-y-hidden">
-                <div class="overflow-hidden rounded-lg w-36" v-for="(image, index) in car.image" :key="image">
+            <div class="grid h-52 w-full py-5 gap-10 grid-rows-1 grid-flow-col-dense overflow-x-scroll snap-x">
+                <div class="rounded-lg w-36" v-for="(image, index) in car.image" :key="image">
                     <img :src="getImgCollage(index)" class="w-full h-full object-cover" @mouseover.self="setIndex(index, $event)">
                 </div>
             </div>
-        </section>
     </div>
 </template>
 
