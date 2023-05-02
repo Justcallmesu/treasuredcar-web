@@ -59,4 +59,17 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+
+  const { meta } = to;
+
+  if (!("isLoggedIn" in meta)) return next();
+
+  if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
+
+  if (!meta.isLoggedIn && store.getters["user/isLoggedIn"]) return next("/");
+
+  return next();
+})
+
 export default router
