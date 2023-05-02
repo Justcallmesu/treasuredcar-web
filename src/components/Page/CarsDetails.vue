@@ -1,15 +1,8 @@
 <template>
-    <div class="mt-24 px-5 pb-20 md:px-20 md:pb-0">
+    <div class="mt-24 px-5 pb-20 md:px-20">
         <summary class="flex flex-col gap-10 md:gap-20 md:flex-row">
             <div class="md:w-1/2 h-full rounded-lg overflow-hidden" v-if="car">
-                    <img :src="getImg" alt="" class="mix-blend-multiply w-full h-80 object-contain">
-                <section v-if="car.image">
-                    <div class="grid h-52 w-full p-5 gap-10 grid-rows-1 grid-flow-col-dense overflow-x-scroll overflow-y-hidden">
-                        <div class="overflow-hidden rounded-lg w-36" v-for="(image, index) in car.image" :key="image">
-                            <img :src="getImgCollage(index)" class="w-full h-full object-cover" @mouseover.self="setIndex(index,$event)">
-                        </div>
-                    </div>
-                </section>
+                <CarCollage :car="car"/>
             </div>
             <div class="md:mt-0">
                 <h1 class="text-3xl font-semibold">{{ car?.name }}</h1>
@@ -19,52 +12,33 @@
                 </div>
             </div>
         </summary>
+        <CarInformation :car="car" v-if="car"/>
     </div>
 </template>
 
 <script>
 import axios from "axios";
+
 import CarSummary from '../CarDetails/CarSummary.vue';
+import CarCollage from '../CarDetails/CarCollage.vue';
+import CarInformation from '../CarDetails/CarInformation.vue';
 
 export default{
     data(){
         return{
             car:null,
-            currentIndex:0,
             lastHovered:null
         }
     },
     components:{
-        CarSummary
+        CarSummary,
+        CarCollage,
+        CarInformation
     },
     async beforeCreate(){
         const response =  await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/car/${this.$route.params._id}`)
         this.car = response.data.data;
     },
-    computed:{
-        getImg(){
-            if (this.car?.image) {
-                return `${process.env.VUE_APP_serverURL}/cars/${this.car.image[this.currentIndex]}`;
-            }
-            return `${process.env.VUE_APP_serverURL}/cars/car-default.png`;
-        },
-        getImgCollage(){
-            return (index)=>{
-                if(this.car.image){
-                    return `${process.env.VUE_APP_serverURL}/cars/${this.car.image[index]}`;
-                }
-            }
-        }
-    },
-    methods:{
-        setIndex(index,event){
-            if(this.lastHovered){
-                this.lastHovered.classList.remove("image-collage-active");
-            }
-            this.currentIndex = index;
-            this.lastHovered = event.target.parentNode;
-            this.lastHovered.classList.add("image-collage-active");
-        }
-    }
+    
 }
 </script>
