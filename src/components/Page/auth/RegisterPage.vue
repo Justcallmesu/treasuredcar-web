@@ -1,29 +1,37 @@
 <template>
-    <div class="flex flex-col justify-center gap-10 items-center h-full w-full">
-        <h1 class="text-3xl font-bold tracking-wider">Create Your Account</h1>
+    <div class="flex flex-col gap-10 h-full w-2/4 bg-slate-100 rounded-lg py-12 px-12">
+        <h1 class="text-3xl font-bold tracking-wider text-center">Daftar</h1>
         <div class="w-full flex flex-col items-center gap-5">
             <div class="form-control">
-                <input type="text" class="form-input" placeholder="Full Name" v-model="fullName">
+                <label for="fullName" class="font-bold">Masukkan Nama</label>
+                <input type="text" class="form-input" id="fullName" placeholder="Full Name" v-model="fullName">
                 <p class="text-red-400">{{ nameError }}</p>
             </div>
             <div class="form-control">
-                <input type="email" class="form-input" placeholder="Example@gmail.com" v-model="email">
+                <label for="email">Masukkan Email</label>
+                <input type="email" class="form-input" id="email" placeholder="Example@gmail.com" v-model="email">
                 <p class="text-red-400">{{ emailError }}</p>
             </div>
             <div class="form-control">
+                <label for="password" class="font-bold">Masukkan Password</label>
                 <div class="w-full relative">
                     <i class="bi absolute right-4 top-2 cursor-pointer scale-150 text-gray-400" :class="getIcons" @click="isVisible = !isVisible"></i>
-                    <input :type="getType" class="form-input pr-10" placeholder="Password" v-model="password">
+                    <input :type="getType" class="form-input pr-10" id="password" placeholder="Password" v-model="password">
                 </div>
                 <p class="text-red-400">{{ passwordError }}</p>
             </div>
             <div class="form-control">
+                <label for="confirmPassword" class="font-bold">Masukkan Ulang Password</label>
                 <div class="w-full relative">
                     <i class="bi absolute right-4 top-2 cursor-pointer scale-150 text-gray-400" :class="getIcons" @click="isVisible = !isVisible"></i>
-                    <input :type="getType" class="form-input pr-10" placeholder="Confirm Password" v-model="confirmPassword">
+                    <input :type="getType" id="confirmPassword" class="form-input pr-10" placeholder="Confirm Password" v-model="confirmPassword">
                 </div>
                 <p class="text-red-400">{{ passwordError }}</p>
             </div>
+            <div class="w-full text-sm flex flex-col gap-1">
+                    <p class="font-bold">Sudah punya akun ?</p>
+                    <router-link :to="{ name: 'login' }" class="text-primary font-bold">Masuk</router-link>
+                </div>
             <button class="form-button" @click="register">Register</button>
         </div>
     </div>
