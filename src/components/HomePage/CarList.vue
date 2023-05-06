@@ -22,7 +22,7 @@ export default{
         }
     },
     async beforeMount(){
-        const response = await axios.get("http://localhost:3000/api/v1/car",{withCredentials:true,headers:{...config.headers}});
+        const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/car`,{headers:{...config.headers}});
         this.carList = response.data.data;
         this.setCar(this.carList);
     },
