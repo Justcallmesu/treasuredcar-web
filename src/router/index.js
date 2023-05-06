@@ -24,6 +24,16 @@ const routes = [
         path: "/auth/register",
         component: () => import("../components/Page/auth/RegisterPage.vue")
       },
+      {
+        name: "OTP",
+        path: "/auth/otp",
+        component: () => import("../components/Page/auth/MyOTP.vue")
+      },
+      {
+        name: "forgotPassword",
+        path: "/auth/forgotPassword",
+        component: () => import("../components/Page/auth/MyForgotPassword.vue")
+      },
     ]
   },
   {

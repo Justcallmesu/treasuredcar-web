@@ -1,17 +1,28 @@
 <template>
-    <div class="flex flex-col justify-center gap-10 items-center h-full w-full">
-        <h1 class="text-3xl font-bold tracking-wider">Login To Your Account</h1>
-        <div class="w-full flex flex-col items-center gap-5">
-            <div class="form-control">
-                <input type="email" class="form-input" placeholder="Example@gmail.com" v-model="email">
-                <p class="text-red-400">{{emailError}}</p>
-            </div>
-            <div class="form-control">
-                <div class="w-full relative">
-                    <i class="bi absolute right-4 top-2 cursor-pointer scale-150 text-gray-400" :class="getIcons" @click="isVisible = !isVisible"></i>
-                    <input :type="getType" class="form-input pr-10" placeholder="Password" v-model="password">
+    <div class="flex flex-col gap-5 h-full w-2/4 bg-slate-100 rounded-lg py-12 px-12">
+        <h1 class="text-3xl text-center font-bold tracking-wider">Masuk</h1>
+        <div class="w-full flex flex-col gap-5 items-center">
+            <div class="w-full flex flex-col items-center gap-5">
+                <div class="form-control">
+                    <label for="email" class="font-bold">Masukkan Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Example@gmail.com" v-model="email">
+                    <p class="text-red-400">{{emailError}}</p>
                 </div>
-                <p class="text-red-400">{{ passwordError }}</p>
+                <div class="form-control">
+                    <label for="password" class="font-bold">Masukkan Password</label>
+                    <div class="w-full relative">
+                        <i class="bi absolute right-4 top-2 cursor-pointer scale-150 text-[#5E5E5E]" :class="getIcons" @click="isVisible = !isVisible"></i>
+                        <input :type="getType" class="form-input pr-10" placeholder="Password" id="password" v-model="password">
+                    </div>
+                    <p class="text-red-400">{{ passwordError }}</p>
+                </div>
+            </div>
+            <div class="w-full text-sm flex flex-col gap-1">
+                <div class="flex justify-between">
+                    <p class="font-bold">Belum punya akun ?</p>
+                    <router-link :to="{name:'forgotPassword'}" class="text-primary font-bold">Lupa Password ?</router-link>
+                </div>
+                <router-link :to="{name:'register'}" class="text-primary font-bold">Daftar</router-link>
             </div>
             <button class="form-button" @click="login()">Login</button>
         </div>
@@ -19,14 +30,16 @@
 </template>
 
 <script>
-// Components
-import emailvalidator from "email-validator";
+import { createNamespacedHelpers } from "vuex";
 
 // NPM Modules
 import axios from "axios";
+import emailvalidator from "email-validator";
 
 // Config
 import config from "../../../utils/config.js"
+
+const {mapMutations} = createNamespacedHelpers("user");
 
 export default{
     data(){
@@ -54,6 +67,7 @@ export default{
         }
     },  
     methods:{
+        ...mapMutations(["setUserId"]),
         resetError(){
             this.emailError = "";
             this.passwordError = "";
