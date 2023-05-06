@@ -29,6 +29,11 @@ const routes = [
         path: "/auth/otp",
         component: () => import("../components/Page/auth/MyOTP.vue")
       },
+      {
+        name: "forgotPassword",
+        path: "/auth/forgotPassword",
+        component: () => import("../components/Page/auth/MyForgotPassword.vue")
+      },
     ]
   },
   {

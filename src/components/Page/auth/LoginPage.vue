@@ -20,7 +20,7 @@
             <div class="w-full text-sm flex flex-col gap-1">
                 <div class="flex justify-between">
                     <p class="font-bold">Belum punya akun ?</p>
-                    <router-link to="" class="text-primary font-bold">Lupa Password ?</router-link>
+                    <router-link :to="{name:'forgotPassword'}" class="text-primary font-bold">Lupa Password ?</router-link>
                 </div>
                 <router-link :to="{name:'register'}" class="text-primary font-bold">Daftar</router-link>
             </div>
@@ -32,11 +32,9 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-// Components
-import emailvalidator from "email-validator";
-
 // NPM Modules
 import axios from "axios";
+import emailvalidator from "email-validator";
 
 // Config
 import config from "../../../utils/config.js"
