@@ -50,6 +50,11 @@
 		@apply bg-primary w-1/2 lg:w-2/3 py-1 rounded-lg text-white;
 	}
 
+	/* otp */
+	.otp {
+		@apply w-16 h-16 rounded-lg text-center text-2xl bg-slate-300;
+	}
+
 	/* Btn */
 	.btn__cta {
 		@apply bg-primary px-5 py-2 rounded-xl text-white;
