@@ -39,7 +39,6 @@ export default{
             valid:true
         }
     },
-    mixins:[cookieParser],
     computed:{
         getType(){
             if (this.isVisible){
