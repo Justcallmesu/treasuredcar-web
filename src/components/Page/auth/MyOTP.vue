@@ -8,31 +8,44 @@
             <h1 class="font-bold text-3xl">Lupa Password ?</h1>
             <h3>Jangan Khawatir tentang akun anda</h3>
         </div>
-        <div class="flex justify-center gap-5">
-            <input type="text" class="otp" ref="otp-1" @change="changeFocus" maxlength="1">
-            <input type="text" class="otp" ref="otp-2" @change="changeFocus" maxlength="1">
-            <input type="text" class="otp" ref="otp-3" @change="changeFocus" maxlength="1">
-            <input type="text" class="otp" ref="otp-4" @change="changeFocus" maxlength="1">
+        <div>
+            <div class="flex justify-center gap-5">
+                <input type="text" class="otp" ref="otp-1" @change="changeFocus" maxlength="1">
+                <input type="text" class="otp" ref="otp-2" @change="changeFocus" maxlength="1">
+                <input type="text" class="otp" ref="otp-3" @change="changeFocus" maxlength="1">
+                <input type="text" class="otp" ref="otp-4" @change="changeFocus" maxlength="1">
+            </div>
+            <p class="text-center text-red-400 mt-5">{{otpError}}</p>
         </div>
         <div class="text-center">
             <p>Kode telah dikirim ke email anda</p>
             <h3 class="font-bold">exampole@gmail.com</h3>
         </div>
         <p>kode ini kadaluarsa dalam 1 jam</p>
-        <button class="form-button">Verifikasi</button>
+        <button class="form-button" @click="sendOTP">Verifikasi</button>
     </div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import axios from 'axios';
 
-const {mapGetters} = createNamespacedHelpers("otp");
+// config
+import config from '@/utils/config';
+
+import { createNamespacedHelpers } from 'vuex';
+const {mapGetters,mapMutations} = createNamespacedHelpers("otp");
 
 export default{
+    data(){
+        return {
+            otpError:""
+        }
+    },
     computed:{
-        ...mapGetters(["getActions"]),
+        ...mapGetters(["getActions","getEmail"]),
     },
     methods:{
+        ...mapMutations(["setData"]),
         changeFocus(){
             if(this.$refs["otp-1"].value >= 1){
                 this.$refs["otp-2"].focus();
@@ -45,6 +58,40 @@ export default{
             if(this.$refs["otp-3"].value >= 1){
                 this.$refs["otp-4"].focus();
                 this.$refs["otp-3"].blur();
+            }
+        },
+        async sendOTP(){
+            this.otpError = "";
+            if (!this.$refs["otp-1"].value || !this.$refs["otp-2"].value || !this.$refs["otp-3"].value || !this.$refs["otp-4"].value){
+                return this.otpError = "OTP Code must not empty";
+            }
+
+            const otpCode = this.$refs["otp-1"].value + this.$refs["otp-2"].value + this.$refs["otp-3"].value + this.$refs["otp-4"].value;
+            try{
+
+                const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/otp`,
+                {
+                    otpCode,
+                    email:this.getEmail,
+                    type:"User"
+                },
+                {
+                    headers:config.headers,
+                    withCredentials:true
+                });
+
+                if(response.status === 200 && this.getActions === "register"){
+                    this.setData({email:"",actions:""});
+                    this.$router.replace({name:"login"});
+                }
+
+                if(response.status === 200 && this.getActions === "forgotPassword"){
+                    this.setData({email:"",actions:""});
+                    this.$router.replace({name:"login"});
+                }
+
+            }catch(error){
+                this.otpError = error?.response?.data.message;
             }
         }
     },

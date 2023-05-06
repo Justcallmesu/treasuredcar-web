@@ -53,7 +53,7 @@ export default{
             })
 
             if(response.status === 201){
-                this.setData({email:this.email,actions:"register"});
+                this.setData({email:this.email,actions:"forgotPassword"});
                 this.$router.replace("/auth/otp");
             }
 

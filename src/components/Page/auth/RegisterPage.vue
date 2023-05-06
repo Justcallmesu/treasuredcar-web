@@ -47,6 +47,9 @@ import axios from "axios";
 // Config
 import config from "../../../utils/config.js"
 
+import { createNamespacedHelpers } from 'vuex';
+const { mapMutations } = createNamespacedHelpers("otp");
+
 export default{
     data(){
         return{
@@ -83,6 +86,7 @@ export default{
         }
     },
     methods:{
+        ...mapMutations(["setData"]),
         async register(){
             this.isValid = true;
             this.emailError = this.passwordError = this.nameError = "";
@@ -127,7 +131,8 @@ export default{
                     })
 
                     if(response.status === 201){
-                        this.$router.replace({name:"login"});
+                        this.setData({email:this.email,actions:"register"})
+                        this.$router.replace({name:"OTP"});
                     }
                 }catch({response}){
                     if(response.status !== 200 && response.data.message.match(/email/ig)){
