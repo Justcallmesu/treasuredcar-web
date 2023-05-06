@@ -21,17 +21,11 @@ export default{
     try {
       const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/getCredentials`,
         {
-          withCredentials: true,
-          headers: config.headers
+          headers: config.headers,
+          withCredentials: true
         });
       if (response.status === 200) {
-        const cookies = [document.cookie.split("=")].reduce((acc, curr) => {
-          return {
-            ...acc,
-            [curr[0]]: curr[1]
-          }
-        }, {});
-        this.setUserId(cookies.userToken);
+        this.setUserId(true);
       }
     } catch { }
   }
