@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+
 // Components
 import emailvalidator from "email-validator";
 
@@ -38,6 +40,8 @@ import axios from "axios";
 
 // Config
 import config from "../../../utils/config.js"
+
+const {mapMutations} = createNamespacedHelpers("otp");
 
 export default{
     data(){
@@ -65,6 +69,7 @@ export default{
         }
     },  
     methods:{
+        ...mapMutations(["setData"]),
         resetError(){
             this.emailError = "";
             this.passwordError = "";
