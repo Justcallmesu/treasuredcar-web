@@ -39,7 +39,7 @@ import emailvalidator from "email-validator";
 // Config
 import config from "../../../utils/config.js"
 
-const {mapMutations} = createNamespacedHelpers("otp");
+const {mapMutations} = createNamespacedHelpers("user");
 
 export default{
     data(){
@@ -67,7 +67,7 @@ export default{
         }
     },  
     methods:{
-        ...mapMutations(["setData"]),
+        ...mapMutations(["setUserId"]),
         resetError(){
             this.emailError = "";
             this.passwordError = "";
