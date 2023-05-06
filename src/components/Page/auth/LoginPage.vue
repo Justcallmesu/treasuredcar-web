@@ -28,9 +28,6 @@ import axios from "axios";
 // Config
 import config from "../../../utils/config.js"
 
-// Mixins
-import cookieParser from "@/mixins/cookieParser";
-
 export default{
     data(){
         return {
@@ -88,7 +85,7 @@ export default{
 
             if (this.valid){
                 // Send user credentials to server and validate more there
-                await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/user/login`,
+                const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/user/login`,
                 {
                     email:this.email,
                     password:this.password
@@ -101,9 +98,10 @@ export default{
                 })
 
                 // Set Cookie value to the state management
-                this.parseCookies("user");
-                
-                this.$router.replace("/");
+                if(response.status === 200){
+                    this.setUserId(true);
+                    this.$router.replace("/");
+                }               
             }
         }
     }

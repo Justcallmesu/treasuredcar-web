@@ -79,12 +79,12 @@ export default{
             this.isValid = true;
             this.emailError = this.passwordError = this.nameError = "";
 
-            if(!this.email || !this.name || !this.password || !this.confirmPassword){
+            if(!this.email || !this.fullName || !this.password || !this.confirmPassword){
                 this.isValid = false;
                 return this.emailError = this.passwordError = this.nameError = "Please fill the data";
             } 
 
-            if (this.name.length <= 1 ) {
+            if (this.fullName.length <= 1 ) {
                 this.isValid = false;
                 this.nameError = "Seriously ? your name only has 1 character ?"
             }
@@ -107,17 +107,20 @@ export default{
 
             if(this.isValid){
                 try{
-                    await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/user/register`,{
-                        name:this.name,
+                    const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/user/register`,{
+                        name:this.fullName,
                         email:this.email,
                         password:this.password,
                         confirmPassword:this.confirmPassword
                     },
                     {
-                        headers:config.headers
-                        ,withCredentials:true
+                        headers:config.headers,
+                        withCredentials: true
                     })
-                    this.$router.replace({name:"login"});
+
+                    if(response.status === 201){
+                        this.$router.replace({name:"login"});
+                    }
                 }catch({response}){
                     if(response.status !== 200 && response.data.message.match(/email/ig)){
                         return this.emailError = response.data.message;
