@@ -9,7 +9,7 @@
             <SearchCard class="text-gray-500"></SearchCard>
             <HeroGalleries/>
         </div>
-        <CarList/>
+
     </div>
 </template>
 
