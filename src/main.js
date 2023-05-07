@@ -6,6 +6,7 @@ import './assets/tailwind.css'
 
 // Components
 import TheHeader from "./components/Layout/TheHeader.vue";
+import TheFooter from "./components/Layout/TheFooter.vue";
 import BaseCard from "./components/Base/BaseCard.vue";
 
 
@@ -14,6 +15,7 @@ const app = createApp(App);
 
 // Components
 app.component('TheHeader', TheHeader);
+app.component('TheFooter', TheFooter);
 app.component('BaseCard', BaseCard);
 
 // Plugins and Extensions

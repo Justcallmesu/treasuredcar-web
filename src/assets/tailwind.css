@@ -75,8 +75,16 @@
 	}
 
 	/* Menu Class Utilities */
-	a[aria-current="page"]:not(.none) {
+	a.header {
 		@apply text-primary relative after:content-[''] after:w-full after:h-[0.2rem] after:bg-primary after:absolute after:-bottom-6 after:right-0;
+	}
+
+	a.footer {
+		@apply text-white relative after:content-[''] after:w-full after:h-[0.2rem] after:bg-white after:absolute after:-bottom-6 after:right-0;
+	}
+
+	footer a {
+		@apply text-white;
 	}
 
 	/* Vertical Text */
