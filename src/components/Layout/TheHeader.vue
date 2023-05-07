@@ -1,17 +1,52 @@
 <template>
-    <header class="px-5 py-5 sticky top-0 w-full flex justify-between items-center shadow-lg">
-        <div class="w-full h-full absolute bg-white left-0 opacity-50 blur-lg -z-10"></div>
-        <h1 class="font-poppins font-bold tracking-wide text-xl text-[#3E3E3E]">Treasured<span class="text-primary">Car</span></h1>
-        <div class="relative hidden md:block">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fefefe" class="bi bi-search absolute top-1/4 left-3" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
-            <input type="text" name="search" id="search" class="bg-primary text-[#fefefe] focus:border-none focus:outline-none pl-8 px-4 py-1 box-border w-64 rounded-3xl" autocomplete="off">
+    <header class="px-5 py-5 fixed top-0 w-full bg-[#efefef] flex z-30 justify-between items-center shadow-lg lg:px-20">
+        <router-link to="/" exact-active-class="none">
+            <h1 class="font-poppins font-bold tracking-wide text-xl text-[#3E3E3E]">Treasured<span class="text-primary">Car</span></h1>
+        </router-link>
+        <div class="flex flex-row gap-10 items-center text-sm">
+            <router-link to="/">HOME</router-link>
+            <router-link to="/cars">CARS FOR BUY</router-link>
+            <router-link to="/cars/sell">SELL A CAR</router-link>
+            <router-link to="/about">ABOUT US</router-link>
+            <router-link to="/faqs">FAQS</router-link>
         </div>
+            <div class="flex flex-row gap-5 items-center" v-if="!isLoggedIn">
+                <router-link :to="{ name: 'login' }" class="text-primary border-primary border-2 px-5 py-1 rounded-lg">Login</router-link>
+                <router-link :to="{ name: 'register' }" class="btn__cta">Register</router-link>
+            </div>
     </header>
 </template>
 
 
 <script>
-    export default{
-        
+// NPM Modules
+import axios from "axios";
+
+// Config
+import config from "../../utils/config.js"
+
+import { createNamespacedHelpers } from 'vuex';
+
+const {mapGetters,mapMutations} = createNamespacedHelpers("user");
+
+export default{
+    computed:{
+        ...mapGetters(["isLoggedIn"])
+    },
+    methods:{
+        ...mapMutations(["setUserId"]),
+        async logOut(){
+        const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/logout`,
+                {
+                    headers: config.headers,
+                    withCredentials: true
+                }).catch(({ response }) => {
+                    this.passwordError = this.emailError = response.data.message;
+                })
+        if (response.status === 200) {
+            this.setUserId(false);
+        }
     }
+    }
+}
 </script>

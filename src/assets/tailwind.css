@@ -5,11 +5,14 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 @layer base {
 	body,
 	html {
-		@apply p-0 m-0 min-h-screen;
+		@apply p-0 m-0 min-h-screen font-poppins;
 	}
 }
 
@@ -19,6 +22,42 @@
 	}
 	.hamburger > span {
 		@apply inline-block w-8 h-[0.3rem] bg-slate-800 rounded-lg transition-all ease-in-out duration-300;
+	}
+
+	/* Card */
+	.card-header {
+		@apply w-full h-52;
+	}
+
+	.card-header > img {
+		@apply w-full h-52 object-scale-down;
+	}
+
+	.card-content {
+		@apply px-5 py-3;
+	}
+
+	/* Login And Register Form */
+	.form-control {
+		@apply w-full flex flex-col gap-1;
+	}
+
+	.form-input {
+		@apply h-10 w-full py-3 px-2 rounded-md bg-slate-300 outline-none text-[#7B8FA1];
+	}
+
+	.form-button {
+		@apply bg-primary w-1/2 lg:w-2/3 py-1 rounded-lg text-white;
+	}
+
+	/* otp */
+	.otp {
+		@apply w-16 h-16 rounded-lg text-center text-2xl bg-slate-300;
+	}
+
+	/* Btn */
+	.btn__cta {
+		@apply bg-primary px-5 py-2 rounded-xl text-white;
 	}
 }
 
@@ -36,11 +75,19 @@
 	}
 
 	/* Menu Class Utilities */
-	nav.bottom-navbar div a {
-		@apply transition-all duration-1000 fill-white p-3 absolute left-0 -top-2 border-none;
+	a[aria-current="page"]:not(.none) {
+		@apply text-primary relative after:content-[''] after:w-full after:h-[0.2rem] after:bg-primary after:absolute after:-bottom-6 after:right-0;
 	}
 
-	nav.bottom-navbar div a.router-link-exact-active {
-		@apply bg-white rounded-full fill-primary -translate-y-8 box-border text-primary;
+	/* Vertical Text */
+	.writing-mode-vlr {
+		display: flex;
+		align-items: center;
+		writing-mode: vertical-rl;
+	}
+
+	/* Car Details Image Collage */
+	.image-collage-active {
+		@apply border-primary border-[3px];
 	}
 }
