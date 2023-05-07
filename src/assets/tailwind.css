@@ -75,12 +75,8 @@
 	}
 
 	/* Menu Class Utilities */
-	nav.bottom-navbar div a {
-		@apply transition-all duration-1000 fill-white p-3 absolute left-0 -top-2 border-none;
-	}
-
-	nav.bottom-navbar div a.router-link-exact-active {
-		@apply bg-white rounded-full fill-primary -translate-y-8 box-border text-primary;
+	a[aria-current="page"]:not(.none) {
+		@apply text-primary relative after:content-[''] after:w-full after:h-[0.2rem] after:bg-primary after:absolute after:-bottom-6 after:right-0;
 	}
 
 	/* Vertical Text */

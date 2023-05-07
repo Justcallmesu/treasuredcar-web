@@ -9,7 +9,9 @@
             <SearchCard class="text-gray-500"></SearchCard>
             <HeroGalleries/>
         </div>
-
+        <MyDiscoverBrand/>
+        <MyDiscoverStyle/>
+        <CarList/>
     </div>
 </template>
 
@@ -17,12 +19,16 @@
 import SearchCard from '../HomePage/SearchCard.vue';
 import HeroGalleries from '../HomePage/HeroGalleries.vue';
 import CarList from '../HomePage/CarList.vue';
+import MyDiscoverBrand from '../HomePage/MyDiscoverBrand.vue';
+import MyDiscoverStyle from '../HomePage/MyDiscoverStyle.vue';
 
 export default{
     components:{
         SearchCard,
         HeroGalleries,
-        CarList
+        CarList,
+        MyDiscoverBrand,
+        MyDiscoverStyle
     }
 }
 
