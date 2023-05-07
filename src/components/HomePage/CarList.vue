@@ -1,10 +1,18 @@
 <template>
-    <div class="w-full min-h-screen bg-slate-200 py-6 px-5">
-        <h1 class="text-2xl text-center relative font-semibold">Explore Posted Cars</h1>
-        <div class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-10">
-            <BaseCard  v-for="data of carList" :key="data._id" :cardData="data"></BaseCard>
+    <main class="w-full py-20">
+        <div class="flex items-center justify-center w-full gap-10">
+            <hr class="w-14 border-[0.1rem] border-black rounded-lg">
+                <h3 class="text-xl tracking-tighter">Cars</h3>
+            <hr class="w-14 border-[0.1rem] border-black rounded-lg">
         </div>
-    </div>
+        <h3 class="text-center font-bold text-2xl mt-4">GET YOUR <span class="text-primary">CAR TO BUY</span></h3>
+        <div class="grid grid-rows-1 grid-flow-col px-5 gap-10 mt-10 overflow-scroll pb-10" v-if="carList?.length">
+            
+        </div>
+        <div class="mt-10" v-else>
+            <h1 class="text-center text-2xl font-bold text-primary">No Cars Yet</h1>
+        </div>
+    </main>
 </template>
 
 <script>
