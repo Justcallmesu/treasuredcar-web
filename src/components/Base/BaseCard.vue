@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-80 bg-white rounded-2xl overflow-hidden">
         <div class="card-header">
-            <img :src="getImage" alt="">
+            <img :src="getImage">
         </div>
         <div class="card-content">
             <div class="flex justify-between font-semibold">

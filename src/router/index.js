@@ -1,11 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BaseMainPage from "../components/BasePage.vue";
 import BaseAuthPage from "../components/BaseAuthPage.vue";
+import BaseUserPage from "../components/BaseUserPage.vue";
 
 // Store
 import store from "../store/main.js";
 
 const routes = [
+  {
+    path: "/user/",
+    component: BaseUserPage,
+    meta: {
+      isLoggedIn: true
+    },
+    children: [
+      {
+        name: "profile",
+        path: "/user/me",
+        component: () => import("../components/Page/user/MyProfile.vue")
+      }
+    ]
+  },
   {
     path: "/auth/",
     component: BaseAuthPage,
@@ -51,14 +66,14 @@ const routes = [
         component: () => import("../components/Page/MySearchPage.vue")
       },
       {
+        name: "about",
+        path: "/about",
+        component: () => import("../components/Page/AboutPage.vue")
+      },
+      {
         name: "user",
         path: "/user",
         component: () => import("../components/Page/MyAccountPage.vue")
-      },
-      {
-        name: "details",
-        path: "/car/:_id",
-        component: () => import("../components/Page/CarsDetails.vue")
       },
     ]
   },
