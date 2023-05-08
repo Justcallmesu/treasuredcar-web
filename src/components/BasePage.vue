@@ -1,23 +1,22 @@
 <template>
-    <div class="h-[5000px]">
+    <div class="">
         <TheHeader />
         <router-view v-slot="{Component}">
-        <transition appear-active-class="Base-Appear-active" appear mode="out-in" name="Base">
-                <component :is="Component"></component>
-        </transition>
-    </router-view>
+            <transition appear-active-class="Base-Appear-active" appear mode="out-in" name="Base">
+                    <component :is="Component"></component>
+            </transition>
+        </router-view>
         <TheBottomBar />
+        <TheFooter/>
     </div>
 </template>
 
 <script>
+// Components
 import TheBottomBar from './Layout/TheBottomBar.vue'
+
+
 export default {
-    data() {
-        return {
-            test: "Okay Then"
-        }
-    },
     components: {
         TheBottomBar
     }
@@ -31,17 +30,14 @@ export default {
 }
 
 /* Transitions */
-.Base-enter-active{
-    transition: 1s all ease-in-out;
-}
+.Base-enter-active,
 .Base-leave-active{
     transition: 1s all ease-in-out;
 }
-.Base-leave-to{
-    transform: translateX(-100vw);
-}
+.Base-leave-to , 
 .Base-enter-from{
-    transform: translateX(100vw);
+    opacity:0;
+    transform: translateX(-100vw);
 }
 
 /* Key Frames */

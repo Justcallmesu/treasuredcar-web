@@ -1,19 +1,42 @@
 <template>
-    <header class="px-5 py-5 sticky top-0 w-full flex justify-between items-center shadow-lg">
-        <div class="w-full h-full absolute bg-white left-0 opacity-50 blur-lg -z-10"></div>
-        <router-link to="/">
+    <header class="px-5 py-5 fixed top-0 w-full bg-[#efefef] flex z-30 justify-between items-center shadow-lg lg:px-10">
+        <router-link to="/" exact-active-class="none">
             <h1 class="font-poppins font-bold tracking-wide text-xl text-[#3E3E3E]">Treasured<span class="text-primary">Car</span></h1>
         </router-link>
-        <div class="relative hidden md:block">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fefefe" class="bi bi-search absolute top-1/4 left-3" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
-            <input type="text" name="search" id="search" class="bg-primary text-[#fefefe] focus:border-none focus:outline-none pl-8 px-4 py-1 box-border w-64 rounded-3xl" autocomplete="off">
+        <div class="flex flex-row gap-10 items-center text-sm">
+            <router-link to="/" exact-active-class="header">HOME</router-link>
+            <router-link to="/cars" exact-active-class="header">CARS FOR BUY</router-link>
+            <router-link to="/cars/sell" exact-active-class="header">SELL A CAR</router-link>
+            <router-link to="/about" exact-active-class="header">ABOUT US</router-link>
+            <router-link to="/faqs" exact-active-class="header">FAQS</router-link>
         </div>
+        <div class="flex flex-row gap-5 items-center" v-if="!isLoggedIn">
+            <router-link :to="{ name: 'login' }" class="text-primary border-primary border-2 px-5 py-1 rounded-lg">Login</router-link>
+            <router-link :to="{ name: 'register' }" class="btn__cta">Register</router-link>
+        </div>
+        <router-link to="/user/me" class="bg-primary py-2 px-3 rounded-2xl flex flex-row items-center gap-5" v-if="getUserData">
+            <p class="text-white">{{ getUserData.name }}</p>
+            <div class="rounded-full overflow-hidden bg-white">
+                <img :src="getImg(getUserData.photo)" :alt="getUserData.name + ' Photo'" class="w-10">
+            </div>
+        </router-link>
     </header>
 </template>
 
 
 <script>
-    export default{
-        
-    }
+import { createNamespacedHelpers } from 'vuex';
+
+const {mapGetters} = createNamespacedHelpers("user");
+
+export default{
+    computed:{
+        ...mapGetters(["isLoggedIn","getUserData"]),
+        getImg(){
+            return (url)=>{
+                return `${process.env.VUE_APP_serverURL}/users/${url}`;
+            }
+        }
+    },
+}
 </script>
