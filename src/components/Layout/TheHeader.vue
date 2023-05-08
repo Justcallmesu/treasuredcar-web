@@ -14,7 +14,7 @@
             <router-link :to="{ name: 'login' }" class="text-primary border-primary border-2 px-5 py-1 rounded-lg">Login</router-link>
             <router-link :to="{ name: 'register' }" class="btn__cta">Register</router-link>
         </div>
-        <router-link to="/user/me" class="bg-primary py-2 px-3 rounded-2xl flex flex-row items-center gap-5" v-else>
+        <router-link to="/user/me" class="bg-primary py-2 px-3 rounded-2xl flex flex-row items-center gap-5" v-if="getUserData">
             <p class="text-white">{{ getUserData.name }}</p>
             <div class="rounded-full overflow-hidden bg-white">
                 <img :src="getImg(getUserData.photo)" :alt="getUserData.name + ' Photo'" class="w-10">
@@ -25,15 +25,9 @@
 
 
 <script>
-// NPM Modules
-import axios from "axios";
-
-// Config
-import config from "../../utils/config.js"
-
 import { createNamespacedHelpers } from 'vuex';
 
-const {mapGetters,mapMutations} = createNamespacedHelpers("user");
+const {mapGetters} = createNamespacedHelpers("user");
 
 export default{
     computed:{
@@ -44,20 +38,5 @@ export default{
             }
         }
     },
-    methods:{
-        ...mapMutations(["setUserData"])
-    },
-    async created() {
-        const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
-            {
-                withCredentials:true,
-                headers:config.headers
-            }
-        );
-        if (response.status === 200){
-            const {data} = response;
-            this.setUserData(data.data);
-        }
-    }
 }
 </script>

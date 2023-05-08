@@ -26,7 +26,7 @@
 
 	/* Card */
 	.card-header {
-		@apply w-full h-52;
+		@apply max-w-full h-52;
 	}
 
 	.card-header > img {
@@ -43,7 +43,7 @@
 	}
 
 	.form-input {
-		@apply h-10 w-full py-3 px-2 rounded-md bg-slate-300 outline-none text-[#7B8FA1];
+		@apply h-10 w-full py-3 px-2 rounded-md bg-slate-300 outline-none text-black;
 	}
 
 	.form-button {
@@ -75,6 +75,14 @@
 	}
 
 	/* Menu Class Utilities */
+	.userPage-link {
+		@apply relative opacity-70;
+	}
+
+	a.profile {
+		@apply opacity-100 after:content-[''] after:w-[0.2rem] after:h-5 after:bg-white after:absolute after:-right-10;
+	}
+
 	a.header {
 		@apply text-primary relative after:content-[''] after:w-full after:h-[0.2rem] after:bg-primary after:absolute after:-bottom-6 after:right-0;
 	}

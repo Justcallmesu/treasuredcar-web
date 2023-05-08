@@ -8,14 +8,17 @@ import config from "./utils/config.js";
 
 // Vue
 import { createNamespacedHelpers } from 'vuex'
-const { mapMutations } = createNamespacedHelpers("user");
+const { mapMutations,mapGetters } = createNamespacedHelpers("user");
 
 // NPM
 import axios from 'axios'
 
 export default{
   methods:{
-    ...mapMutations(["setUserId"])
+    ...mapMutations(["setUserId","setUserData"])
+  },
+  computed:{
+    ...mapGetters(["isLoggedIn", "getUserData"]),
   },
   async beforeCreate() {
     try {
@@ -26,7 +29,19 @@ export default{
         });
       if (response.status === 200) {
         this.setUserId(true);
+
+        const userData = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
+          {
+            withCredentials: true,
+            headers: config.headers
+          }
+        );
+        if (userData.status === 200) {
+          const { data } = userData;
+          this.setUserData(data.data);
+        }
       }
+
     } catch { }
   }
 }
