@@ -66,14 +66,14 @@ const routes = [
         component: () => import("../components/Page/MySearchPage.vue")
       },
       {
+        name: "about",
+        path: "/about",
+        component: () => import("../components/Page/AboutPage.vue")
+      },
+      {
         name: "user",
         path: "/user",
         component: () => import("../components/Page/MyAccountPage.vue")
-      },
-      {
-        name: "details",
-        path: "/car/:_id",
-        component: () => import("../components/Page/CarsDetails.vue")
       },
     ]
   },
