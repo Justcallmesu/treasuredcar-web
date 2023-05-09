@@ -20,6 +20,9 @@ export default{
         },
         check:{
             type:Function
+        },
+        setSelectedBrand:{
+            type:Function
         }
     },
     data(){
@@ -39,6 +42,11 @@ export default{
         removeClass(brand){
             const [element] = this.$refs[brand];
             this.check(element,"brands");
+        }
+    },
+    watch:{
+        selectedBrand(){
+            this.setSelectedBrand(this.selectedBrand);
         }
     }
 }

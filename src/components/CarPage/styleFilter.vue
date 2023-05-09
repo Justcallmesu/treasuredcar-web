@@ -26,6 +26,9 @@ export default{
         },
         check: {
             type: Function
+        },
+        setSelectedStyle:{
+            type:Function
         }
     },
     data() {
@@ -47,6 +50,11 @@ export default{
         removeClass(style) {
             const [element] = this.$refs[style];
             this.check(element,"cars");
+        }
+    },
+    watch:{
+        selectedStyle(){
+            this.setSelectedStyle(this.selectedStyle);
         }
     }
 }

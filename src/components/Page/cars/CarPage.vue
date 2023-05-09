@@ -6,10 +6,10 @@
         <section class="flex flex-shrink">
             <div class="w-1/3 h-full flex flex-col gap-10">
                 <!-- Brands -->
-                <brandFilter :getImg="getImg" :check="check"/>
+                <brandFilter :getImg="getImg" :check="check" :setSelectedBrand="setSelectedBrand"/>
 
                 <!-- Style -->
-                <styleFilter :getImg="getImg" :check="check"/>
+                <styleFilter :getImg="getImg" :check="check" :setSelectedStyle="setSelectedStyle"/>
             </div>
 
             <div class="w-full h-full">
@@ -57,6 +57,12 @@ export default{
                 document.querySelector(`.${location} .selected`).classList.remove("selected");
             }
             element.classList.add("selected");
+        },
+        setSelectedBrand(brand){
+            this.selectedBrand = brand;
+        },
+        setSelectedStyle(style){
+            this.selectedStyle = style;
         }
     },
     computed:{
