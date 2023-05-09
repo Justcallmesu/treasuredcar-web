@@ -53,6 +53,17 @@ const routes = [
   },
   {
     component: BaseMainPage,
+    path: "/cars",
+    children: [
+      {
+        name: "cars",
+        path: "/cars",
+        component: () => import("../components/Page/cars/CarPage.vue")
+      }
+    ]
+  },
+  {
+    component: BaseMainPage,
     path: "/",
     children: [
       {
