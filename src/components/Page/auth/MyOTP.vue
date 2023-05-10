@@ -68,12 +68,12 @@ export default{
 
             const otpCode = this.$refs["otp-1"].value + this.$refs["otp-2"].value + this.$refs["otp-3"].value + this.$refs["otp-4"].value;
             try{
-
+                const target = this.$route.query.type === "sellers" ? "Seller" : "User";
                 const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/otp`,
                 {
                     otpCode,
                     email:this.getEmail,
-                    type:"User"
+                    type:target
                 },
                 {
                     headers:config.headers,

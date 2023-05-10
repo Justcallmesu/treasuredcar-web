@@ -36,6 +36,11 @@ export default{
             emailError:""
         }
     },
+    computed:{
+        getQuery() {
+            return this.$route.query;
+        }
+    },
     methods:{
         ...mapMutations(["setData"]),
         async forgotPassword(){
@@ -43,7 +48,9 @@ export default{
             if(!this.email) return this.emailError ="Email must not empty";
             if(!emailvalidator.validate(this.email)) return this.emailError = "Invalid Email";
 
-            const response = await axios.patch(`${process.env.VUE_APP_serverURL}/api/v1/user/forgotPassword`,
+            const target = this.$route.query.type === "sellers" ? "seller" : "user";
+
+            const response = await axios.patch(`${process.env.VUE_APP_serverURL}/api/v1/${target}/forgotPassword`,
             {
                 email:this.email
             },
@@ -54,7 +61,7 @@ export default{
 
             if(response.status === 201){
                 this.setData({email:this.email,actions:"forgotPassword"});
-                this.$router.replace("/auth/otp");
+                this.$router.replace({name:"OTP",query:this.getQuery});
             }
 
         }

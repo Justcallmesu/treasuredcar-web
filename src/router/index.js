@@ -1,23 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BaseMainPage from "../components/BasePage.vue";
 import BaseAuthPage from "../components/BaseAuthPage.vue";
-import BaseUserPage from "../components/BaseUserPage.vue";
+import BaseAccountPage from "../components/BaseAccountPage.vue";
 
 // Store
 import store from "../store/main.js";
 
 const routes = [
   {
-    path: "/user/",
-    component: BaseUserPage,
+    path: "/account/",
+    component: BaseAccountPage,
+    redirect: "/account/user/me",
     meta: {
       isLoggedIn: true
     },
     children: [
       {
-        name: "profile",
-        path: "/user/me",
-        component: () => import("../components/Page/user/MyProfile.vue")
+        name: "userProfile",
+        path: "/account/user/me",
+        component: () => import("../components/Page/user/MyUserProfile.vue")
+      },
+      {
+        name: "sellerProfile",
+        path: "/account/seller/me",
+        component: () => import("../components/Page/seller/MySellerProfile.vue")
       }
     ]
   },
@@ -86,11 +92,6 @@ const routes = [
         path: "/about",
         component: () => import("../components/Page/AboutPage.vue")
       },
-      {
-        name: "user",
-        path: "/user",
-        component: () => import("../components/Page/MyAccountPage.vue")
-      },
     ]
   },
 ]
@@ -102,13 +103,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-  const { meta } = to;
+  const { meta, query } = to;
+
 
   if (!("isLoggedIn" in meta)) return next();
 
+  // Is User Logged In
   if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
 
-  if (!meta.isLoggedIn && store.getters["user/isLoggedIn"]) return next("/");
+  if (meta.isSeller && !store.getters["seller/isSellers"]) return next({ name: "login" }, { query: { type: "seller" } });
+
+  if ((!meta.isLoggedIn && store.getters["user/isLoggedIn"]) && !meta.isSeller && store.getters["seller/isSellers"]) return next("/");
 
   return next();
 })
