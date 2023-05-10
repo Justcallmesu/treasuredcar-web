@@ -17,6 +17,7 @@ const { mapMutations: userMutations} = createNamespacedHelpers("user");
 const { mapMutations: sellerMutations } = createNamespacedHelpers("seller");
 // NPM
 import axios from 'axios'
+import { onBeforeRouteUpdate } from 'vue-router';
 
 export default{
   methods:{
@@ -70,8 +71,13 @@ export default{
       } catch { }
     }
   },
-  async created() {
-      await Promise.all([this.getUserData(),this.getSellerData()])
+  async beforeMount() {
+    await Promise.all([this.getUserData(),this.getSellerData()])
+  },
+  watch:{
+    async ["$route"](){
+      await Promise.all([this.getUserData(), this.getSellerData()])
+    }
   }
 }
 </script>
