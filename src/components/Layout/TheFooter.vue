@@ -6,7 +6,6 @@
             <router-link to="/cars" exact-active-class="footer">CARS FOR BUY</router-link>
             <router-link to="/cars/sell" exact-active-class="footer">SELL A CAR</router-link>
             <router-link to="/about" exact-active-class="footer">ABOUT US</router-link>
-            <router-link to="/faqs" exact-active-class="footer">FAQS</router-link>
         </div>
         <hr class="border-white mt-6">
         <p class="text-gray-200 text-sm text-center mt-5">COPYRIGHT &copy; 2023 BY SECONDCAR GROUP TREASUREDCAR</p>

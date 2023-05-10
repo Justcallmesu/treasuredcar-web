@@ -106,4 +106,9 @@
 	.image-collage-active {
 		@apply border-primary border-[3px];
 	}
+
+	/* Selected */
+	.selected {
+		@apply bg-primary text-white;
+	}
 }
