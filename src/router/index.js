@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BaseMainPage from "../components/BasePage.vue";
 import BaseAuthPage from "../components/BaseAuthPage.vue";
-import BaseUserPage from "../components/BaseUserPage.vue";
+import BaseAccountPage from "../components/BaseAccountPage.vue";
 
 // Store
 import store from "../store/main.js";
@@ -9,7 +9,7 @@ import store from "../store/main.js";
 const routes = [
   {
     path: "/user/",
-    component: BaseUserPage,
+    component: BaseAccountPage,
     meta: {
       isLoggedIn: true
     },
@@ -102,13 +102,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-  const { meta } = to;
+  const { meta, query } = to;
+
 
   if (!("isLoggedIn" in meta)) return next();
 
+  // Is User Logged In
   if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
 
-  if (!meta.isLoggedIn && store.getters["user/isLoggedIn"]) return next("/");
+  if (meta.isSeller && !store.getters["seller/isSellers"]) return next({ name: "login" }, { query: { type: "seller" } });
+
+  if ((!meta.isLoggedIn && store.getters["user/isLoggedIn"]) && !meta.isSeller && store.getters["seller/isSellers"]) return next("/");
 
   return next();
 })
