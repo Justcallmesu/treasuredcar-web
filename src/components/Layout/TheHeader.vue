@@ -12,7 +12,7 @@
       <router-link to="/cars" exact-active-class="header"
         >CARS FOR BUY</router-link
       >
-      <router-link to="/cars/sell" exact-active-class="header"
+      <router-link to="/cars/sell" exact-active-class="header" v-if="isSellers"
         >SELL A CAR</router-link
       >
       <router-link to="/about" exact-active-class="header"
@@ -30,7 +30,7 @@
       >
     </div>
     <router-link
-      to="/user/me"
+      to="/account/user/me"
       class="bg-primary py-2 px-3 rounded-2xl flex flex-row items-center gap-5"
       v-if="getUserData"
     >
@@ -50,11 +50,13 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-const { mapGetters } = createNamespacedHelpers("user");
+const { mapGetters:userGetters } = createNamespacedHelpers("user");
+const { mapGetters:sellerGetters } = createNamespacedHelpers("seller");
 
 export default {
   computed: {
-    ...mapGetters(["isLoggedIn", "getUserData"]),
+    ...userGetters(["isLoggedIn", "getUserData"]),
+    ...sellerGetters(["isSellers"]),
     getImg() {
       return (url) => {
         return `${process.env.VUE_APP_serverURL}/users/${url}`;

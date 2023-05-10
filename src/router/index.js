@@ -8,16 +8,22 @@ import store from "../store/main.js";
 
 const routes = [
   {
-    path: "/user/",
+    path: "/account/",
     component: BaseAccountPage,
+    redirect: "/account/user/me",
     meta: {
       isLoggedIn: true
     },
     children: [
       {
-        name: "profile",
-        path: "/user/me",
-        component: () => import("../components/Page/user/MyProfile.vue")
+        name: "userProfile",
+        path: "/account/user/me",
+        component: () => import("../components/Page/user/MyUserProfile.vue")
+      },
+      {
+        name: "sellerProfile",
+        path: "/account/seller/me",
+        component: () => import("../components/Page/seller/MySellerProfile.vue")
       }
     ]
   },
@@ -85,11 +91,6 @@ const routes = [
         name: "about",
         path: "/about",
         component: () => import("../components/Page/AboutPage.vue")
-      },
-      {
-        name: "user",
-        path: "/user",
-        component: () => import("../components/Page/MyAccountPage.vue")
       },
     ]
   },
