@@ -78,10 +78,19 @@ export default{
                 withCredentials:true
             })
 
-            if(response.status === 200){
-                this.setUserData(response.data.data.user);
-                this.$router.replace("/");
-            }
+            if(!response.status === 200) return;
+
+            const userData = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
+                {
+                    withCredentials: true,
+                    headers: config.headers
+                }
+            );
+            if (!userData.status === 200) return;
+
+            const { data } = userData;
+            this.setUserData(data.data);
+            this.$router.replace("/");
         }
     }
 }
