@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen pt-32 px-5 pb-20 flex flex-col gap-20  md:px-20 md:pb-0">
+    <div class="min-h-screen pt-32 px-5 pb-20 flex flex-col gap-20">
         <summary class="py-10 px-10 flex flex-col gap-10 md:gap-20 md:flex-row shadow-xl rounded-lg">
             <div class="md:w-1/2 h-full rounded-lg overflow-hidden" v-if="car">
                     <img :src="getImg" alt="" class="mix-blend-multiply w-full h-80 object-contain">
@@ -19,8 +19,11 @@
                 </div>
             </div>
         </summary>
-        <article class="w-full">
-            <h1 class="text-center text-2xl font-bold">Description</h1>
+        <article class="w-full min-h-[10rem] shadow-xl p-10">
+            <h1 class="text-2xl font-bold">Description</h1>
+            <div class="mt-5">
+                <p>{{ car?.description }}</p>
+            </div>
         </article>
     </div>
 </template>
