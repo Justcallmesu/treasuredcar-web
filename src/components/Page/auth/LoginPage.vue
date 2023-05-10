@@ -67,7 +67,7 @@ export default{
         }
     },  
     methods:{
-        ...mapMutations(["setUserId"]),
+        ...mapMutations(["setUserId","setUserData"]),
         resetError(){
             this.emailError = "";
             this.passwordError = "";
@@ -111,10 +111,23 @@ export default{
                 })
 
                 // Set Cookie value to the state management
-                if(response.status === 200){
-                    this.setUserId(true);
-                    this.$router.replace("/");
-                }               
+                if(!response.status === 200) return;
+
+                const userData = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
+                    {
+                        withCredentials: true,
+                        headers: config.headers
+                    }
+                );
+                if (!userData.status === 200) return
+                
+                const { data } = userData;
+                this.setUserData(data.data);
+
+                this.setUserId(true);
+                this.$router.replace("/");
+
+
             }
         }
     }

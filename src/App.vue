@@ -24,7 +24,7 @@ export default{
   computed:{
     ...mapGetters(["isLoggedIn", "getUserData"]),
   },
-  async beforeCreate() {
+  async created() {
     try {
       const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/getCredentials`,
         {

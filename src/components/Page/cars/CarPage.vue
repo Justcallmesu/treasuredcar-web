@@ -13,9 +13,7 @@
             </div>
 
             <div class="w-full h-full">
-                <header>
-                    <h1 class="font-bold text-xl text-center">BRANDS</h1>
-                </header>
+                <CarPageList :style="selectedStyle" :brand="selectedBrand" :coords="coords"/>
             </div>
         </section>
     </main>
@@ -29,6 +27,7 @@ import axios from 'axios';
 import locationBar from '@/components/CarPage/locationBar.vue';
 import brandFilter from '@/components/CarPage/brandFilter.vue';
 import styleFilter from '@/components/CarPage/styleFilter.vue';
+import CarPageList from '@/components/CarPage/CarPageList.vue';
 
 export default{
     data() {
@@ -75,7 +74,8 @@ export default{
     components:{
         locationBar,
         brandFilter,
-        styleFilter
+        styleFilter,
+        CarPageList
     }
     
 }
