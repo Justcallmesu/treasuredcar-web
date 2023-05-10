@@ -7,6 +7,7 @@
             </transition>
         </router-view>
         <TheBottomBar />
+        <TheFooter/>
     </div>
 </template>
 

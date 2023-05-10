@@ -4,5 +4,8 @@ export default {
             return true;
         }
         return false;
+    },
+    getUserData(state) {
+        return state.userData;
     }
 }

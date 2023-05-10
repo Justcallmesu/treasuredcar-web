@@ -5,7 +5,8 @@ const user = {
     namespaced: true,
     state() {
         return {
-            userToken: null
+            userToken: null,
+            userData: null
         }
     },
     mutations,
