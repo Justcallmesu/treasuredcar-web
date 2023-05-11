@@ -54,6 +54,11 @@
 		@apply bg-primary w-1/2 lg:w-2/3 py-1 rounded-lg text-white;
 	}
 
+	.form-input::-webkit-outer-spin-button,
+	.form-input::-webkit-inner-spin-button {
+		@apply appearance-none m-0;
+	}
+
 	/* otp */
 	.otp {
 		@apply w-16 h-16 rounded-lg text-center text-2xl bg-slate-300;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-2xl font-bold text-center">WE FOUND 10 CARS FOR YOU</h1>
+        <h1 class="text-2xl font-bold text-center">WE FOUND <span class="text-primary">{{ getDataLength }} CARS </span>FOR YOU</h1>
         <section class="grid grid-cols-2 gap-x-10 gap-y-5">
             <BaseCard v-for="car in carData" :key="car._id" :cardData="car"/>
         </section>
@@ -32,6 +32,11 @@ export default{
             carData:[]
         }
     },
+    computed:{
+        getDataLength(){
+            return this.carData.length;
+        }
+    },  
     async created(){
         await this.getCar();
     },
@@ -64,7 +69,7 @@ export default{
 
             const {data} = response;
             
-            this.carData = data.data;
+            this.carData = Object.values(data.data);
         }
     },
     watch:{
@@ -76,7 +81,7 @@ export default{
         },
         async coords(){
             await this.getCar();
-        }
+        },
     },
     components:{
         BaseCard

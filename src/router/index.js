@@ -15,10 +15,32 @@ const routes = [
       isLoggedIn: true
     },
     children: [
+      // User
       {
         name: "userProfile",
         path: "/account/user/me",
         component: () => import("../components/Page/user/MyUserProfile.vue")
+      },
+      {
+        name: "userTransactions",
+        path: "/account/user/transactions",
+        component: () => import("../components/Page/transactions/MyTransactionsList.vue")
+      },
+      {
+        name: "userBookings",
+        path: "/account/user/bookings",
+        component: () => import("../components/Page/bookings/MyBookingsList.vue")
+      },
+      // Seller
+      {
+        name: "sellerBookings",
+        path: "/account/seller/bookings",
+        component: () => import("../components/Page/bookings/MyBookingsList.vue")
+      },
+      {
+        name: "sellerTransactions",
+        path: "/account/seller/transactions",
+        component: () => import("../components/Page/transactions/MyTransactionsList.vue")
       },
       {
         name: "sellerProfile",
@@ -70,6 +92,14 @@ const routes = [
         name: "details",
         path: "/cars/:_id",
         component: () => import("../components/Page/cars/CarsDetails.vue")
+      },
+      {
+        name: "sellCars",
+        path: "/cars/sell",
+        component: () => import("../components/Page/cars/MySellCars.vue"),
+        meta: {
+          isSeller: true
+        }
       }
     ]
   },
@@ -106,11 +136,11 @@ router.beforeEach((to, from, next) => {
   const { meta, query } = to;
 
 
-  if (!("isLoggedIn" in meta)) return next();
+
+  if (!("isLoggedIn" in meta) && !("isSeller" in meta)) return next();
 
   // Is User Logged In
   if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
-
   if (meta.isSeller && !store.getters["seller/isSellers"]) return next({ name: "login" }, { query: { type: "seller" } });
 
   if ((!meta.isLoggedIn && store.getters["user/isLoggedIn"]) && !meta.isSeller && store.getters["seller/isSellers"]) return next("/");
