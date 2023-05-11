@@ -15,7 +15,7 @@ const routes = [
       isLoggedIn: true
     },
     children: [
-      // Seller
+      // User
       {
         name: "userProfile",
         path: "/account/user/me",
@@ -25,6 +25,17 @@ const routes = [
         name: "userTransactions",
         path: "/account/user/transactions",
         component: () => import("../components/Page/transactions/MyTransactionsList.vue")
+      },
+      {
+        name: "userBookings",
+        path: "/account/user/bookings",
+        component: () => import("../components/Page/bookings/MyBookingsList.vue")
+      },
+      // Seller
+      {
+        name: "sellerBookings",
+        path: "/account/seller/bookings",
+        component: () => import("../components/Page/bookings/MyBookingsList.vue")
       },
       {
         name: "sellerTransactions",

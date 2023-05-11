@@ -30,7 +30,7 @@ export default{
         }
     },
     async beforeMount(){
-        const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/car`,{headers:{...config.headers}});
+        const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/car?page=1&itemsPerPage=3`,{headers:{...config.headers}});
         this.carList = response.data.data;
     },
     components:{

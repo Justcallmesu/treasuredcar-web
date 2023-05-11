@@ -17,7 +17,7 @@
                     <i class="bi bi-cash text-2xl"></i>
                     <h3>Transactions</h3>
                 </router-link>
-                <router-link to="/uaser/booking" exact-active-class="profile" class="flex flex-row items-center gap-5 userPage-link">
+                <router-link to="/account/user/bookings" exact-active-class="profile" class="flex flex-row items-center gap-5 userPage-link">
                     <i class="bi bi-clipboard-check text-2xl"></i>
                     <h3>Booking</h3>
                 </router-link>
@@ -36,7 +36,7 @@
                         <i class="bi bi-cash text-2xl"></i>
                         <h3>Seller Transactions</h3>
                     </router-link>
-                    <router-link to="/uaser/booking" exact-active-class="profile" class="flex flex-row items-center gap-5 userPage-link">
+                    <router-link to="/account/seller/bookings" exact-active-class="profile" class="flex flex-row items-center gap-5 userPage-link">
                         <i class="bi bi-clipboard-check text-2xl"></i>
                         <h3>Seller Booking</h3>
                     </router-link>
@@ -69,7 +69,10 @@ export default{
         getTitle(){
             const routeName = this.$route.name;
 
-            if(routeName) return "My Profile"
+            if(routeName === "userProfile") return "My User Profile"
+            if(routeName === "userTransactions" || routeName === "sellerTransactions") return "My Transactions";
+            if(routeName === "userBookings" || routeName === "sellerBookings") return "My Bookings";
+            if(routeName === "sellerProfile") return "My Seller Profile"
         }
     }
 }
