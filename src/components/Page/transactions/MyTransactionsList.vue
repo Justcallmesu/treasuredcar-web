@@ -4,7 +4,7 @@
             <summary v-for="transaction of transactionList" :key="transaction._id" class="flex items-center justify-between bg-primary text-white rounded-lg shadow-lg overflow-hidden">
                 <div class="px-5 py-3 flex flex-col gap-2 bg-white text-black">
                 <section class="flex flex-col gap-1">
-                    <h1 class="font-bold text-xl">Transaction Date </h1>
+                    <h1 class="font-bold text-xl">Transaction Date</h1>
                     <p>{{ new Date(transaction.createdAt).toLocaleDateString() }}</p>
                 </section>
                 <section class="flex flex-col gap-1">
@@ -62,7 +62,6 @@ export default{
             this.transactionList = Object.values(data)
         },
         async updateData(carId,userId){
-            console.log(carId);
             const transactionData = await axios.patch(`${process.env.VUE_APP_serverURL}/api/v1/transaction`,
                 {
                     userId,
