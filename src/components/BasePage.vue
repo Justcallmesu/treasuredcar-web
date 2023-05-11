@@ -6,7 +6,6 @@
                     <component :is="Component"></component>
             </transition>
         </router-view>
-        <TheBottomBar />
         <TheFooter/>
     </div>
 </template>
