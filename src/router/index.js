@@ -92,6 +92,14 @@ const routes = [
         name: "details",
         path: "/cars/:_id",
         component: () => import("../components/Page/cars/CarsDetails.vue")
+      },
+      {
+        name: "sellCars",
+        path: "/cars/sell",
+        component: () => import("../components/Page/cars/MySellCars.vue"),
+        meta: {
+          isSeller: true
+        }
       }
     ]
   },
@@ -128,11 +136,11 @@ router.beforeEach((to, from, next) => {
   const { meta, query } = to;
 
 
-  if (!("isLoggedIn" in meta)) return next();
+
+  if (!("isLoggedIn" in meta) && !("isSeller" in meta)) return next();
 
   // Is User Logged In
   if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
-
   if (meta.isSeller && !store.getters["seller/isSellers"]) return next({ name: "login" }, { query: { type: "seller" } });
 
   if ((!meta.isLoggedIn && store.getters["user/isLoggedIn"]) && !meta.isSeller && store.getters["seller/isSellers"]) return next("/");
