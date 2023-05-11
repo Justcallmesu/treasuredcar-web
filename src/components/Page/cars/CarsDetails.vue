@@ -1,9 +1,9 @@
 <template>
-    <div class="mt-24 px-5 pb-20 md:px-20 md:pb-0">
-        <summary class="flex flex-col gap-10 md:gap-20 md:flex-row">
+    <div class="min-h-screen pt-32 px-5 pb-20 flex flex-col gap-20">
+        <summary class="py-10 px-10 flex flex-col gap-10 md:gap-20 md:flex-row shadow-xl rounded-lg">
             <div class="md:w-1/2 h-full rounded-lg overflow-hidden" v-if="car">
                     <img :src="getImg" alt="" class="mix-blend-multiply w-full h-80 object-contain">
-                <section v-if="car.image">
+                <section v-if="car.image.length">
                     <div class="grid h-52 w-full p-5 gap-10 grid-rows-1 grid-flow-col-dense overflow-x-scroll overflow-y-hidden">
                         <div class="overflow-hidden rounded-lg w-36" v-for="(image, index) in car.image" :key="image">
                             <img :src="getImgCollage(index)" class="w-full h-full object-cover" @mouseover.self="setIndex(index,$event)">
@@ -19,12 +19,18 @@
                 </div>
             </div>
         </summary>
+        <article class="w-full min-h-[10rem] shadow-xl p-10">
+            <h1 class="text-2xl font-bold">Description</h1>
+            <div class="mt-5">
+                <p>{{ car?.description }}</p>
+            </div>
+        </article>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import CarSummary from '../CarDetails/CarSummary.vue';
+import CarSummary from '../../CarDetails/CarSummary.vue';
 
 export default{
     data(){
@@ -43,7 +49,7 @@ export default{
     },
     computed:{
         getImg(){
-            if (this.car?.image) {
+            if (this.car?.image.length) {
                 return `${process.env.VUE_APP_serverURL}/cars/${this.car.image[this.currentIndex]}`;
             }
             return `${process.env.VUE_APP_serverURL}/cars/car-default.png`;

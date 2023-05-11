@@ -11,15 +11,6 @@
 </template>
 
 <script>
-// Components
-import TheBottomBar from './Layout/TheBottomBar.vue'
-
-
-export default {
-    components: {
-        TheBottomBar
-    }
-}
 </script>
 
 <style scoped>

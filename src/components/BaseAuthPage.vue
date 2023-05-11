@@ -31,15 +31,7 @@ export default{
         }
     },
     watch: {
-        // "$store.getters['user/isLoggedIn']":{
-        //     handler(val) {
-        //         if (this.checkUser) {
-        //             this.$router.replace("/");
-        //         }
-        //     },
-        //     deep:true,
-        //     immediate:true,
-        // }
+
     }
 }
 
