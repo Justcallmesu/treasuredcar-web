@@ -5,7 +5,7 @@
         </div>
         <div class="card-content">
             <div class="flex justify-between font-semibold">
-                <h4 class="text-xl">{{ cardData.name }}</h4>
+                <h4 class="text-xl">{{ cardData.year }}</h4>
                 <h4 class="text-lg">Rp {{ cardData.price.toLocaleString("id-ID") }}</h4>
             </div>
             <div class="flex justify-between items-center">
