@@ -8,6 +8,21 @@ import store from "../store/main.js";
 
 const routes = [
   {
+    path: "/seller/",
+    component: BaseMainPage,
+    redirect: "/",
+    children: [
+      {
+        name: "myStore",
+        path: "/seller/me",
+        component: () => import("../components/Page/seller/MySellerPage.vue"),
+        meta: {
+          isSeller: true
+        }
+      }
+    ]
+  },
+  {
     path: "/account/",
     component: BaseAccountPage,
     redirect: "/account/user/me",
@@ -140,8 +155,8 @@ router.beforeEach((to, from, next) => {
   if (!("isLoggedIn" in meta) && !("isSeller" in meta)) return next();
 
   // Is User Logged In
-  if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
   if (meta.isSeller && !store.getters["seller/isSellers"]) return next({ name: "login" }, { query: { type: "seller" } });
+  if (meta.isLoggedIn && !store.getters["user/isLoggedIn"]) return next({ name: "login" });
 
   if ((!meta.isLoggedIn && store.getters["user/isLoggedIn"]) && !meta.isSeller && store.getters["seller/isSellers"]) return next("/");
 

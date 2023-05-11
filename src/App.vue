@@ -45,7 +45,10 @@ export default{
           }
         }
 
-      } catch { }
+      } catch {
+        this.setUserData(null);
+        this.setUserId(false);
+      }
     },
     async getSellerData(){
       try {
@@ -68,7 +71,10 @@ export default{
             this.setSellerData(data.data);
           }
         }
-      } catch { }
+      } catch { 
+        this.setIsSeller(false);
+        this.setSellerData(null);
+      }
     }
   },
   async beforeMount() {
