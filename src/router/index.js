@@ -81,11 +81,6 @@ const routes = [
         path: "/about",
         component: () => import("../components/Page/AboutPage.vue")
       },
-      {
-        name: "user",
-        path: "/user",
-        component: () => import("../components/Page/MyAccountPage.vue")
-      },
     ]
   },
 ]
