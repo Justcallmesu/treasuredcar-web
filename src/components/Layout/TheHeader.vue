@@ -12,9 +12,8 @@
       <router-link to="/cars" exact-active-class="header"
         >CARS FOR BUY</router-link
       >
-      <router-link to="/cars/sell" exact-active-class="header" v-if="isSellers"
-        >SELL A CAR</router-link
-      >
+      <router-link to="/cars/sell" exact-active-class="header" v-if="isSellers">SELL A CAR</router-link>
+      <router-link to="/seller/me" exact-active-class="header" v-if="isSellers">MY STORE</router-link>
       <router-link to="/about" exact-active-class="header"
         >ABOUT US</router-link
       >
