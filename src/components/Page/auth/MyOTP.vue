@@ -43,6 +43,12 @@ export default{
     },
     computed:{
         ...mapGetters(["getActions","getEmail"]),
+        getURL() {
+            if (this.$route.query.type === "sellers") {
+                return "/auth/login?type=sellers"
+            }
+            return "/auth/login"
+        }
     },
     methods:{
         ...mapMutations(["setData"]),
@@ -82,12 +88,12 @@ export default{
 
                 if(response.status === 200 && this.getActions === "register"){
                     this.setData({email:"",actions:""});
-                    this.$router.replace({name:"login"});
+                    this.$router.replace(this.getURL);
                 }
 
                 if(response.status === 200 && this.getActions === "forgotPassword"){
                     this.setData({email:"",actions:""});
-                    this.$router.replace({name:"login"});
+                    this.$router.replace(this.getURL);
                 }
 
             }catch(error){

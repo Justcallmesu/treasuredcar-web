@@ -47,6 +47,12 @@
                             <h3>Login As Seller</h3>
                     </router-link>
                 </div>
+                <button class="flex flex-row items-center gap-5 userPage-link" @click="logOut">
+                        <i class="bi bi-box-arrow-left text-2xl"></i>
+                        <p>
+                            Log Out
+                        </p>
+                </button>
             </div>
         </div>
         <div class="w-full">
@@ -59,9 +65,15 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { createNamespacedHelpers } from 'vuex';
 
-const {mapGetters} = createNamespacedHelpers("seller")
+// Config
+import config from '@/utils/config';
+
+const { mapMutations: userMutations } = createNamespacedHelpers("user");
+const { mapMutations: sellerMutations,mapGetters } = createNamespacedHelpers("seller");
+
 
 export default{
     computed:{
@@ -73,6 +85,26 @@ export default{
             if(routeName === "userTransactions" || routeName === "sellerTransactions") return "My Transactions";
             if(routeName === "userBookings" || routeName === "sellerBookings") return "My Bookings";
             if(routeName === "sellerProfile") return "My Seller Profile"
+        }
+    },
+    methods:{
+        ...userMutations(["setUserId", "setUserData"]),
+        ...sellerMutations(["setIsSeller", "setSellerData"]),
+        async logOut(){
+            await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/logout`,{
+                headers:config.header,
+                withCredentials:true
+            }).finally(()=>{
+                // User
+                this.setUserId(null);
+                this.setUserData(null);
+
+                // Seller
+                this.setIsSeller(null);
+                this.setSellerData(null);
+
+                this.$router.replace("/");
+            })
         }
     }
 }
