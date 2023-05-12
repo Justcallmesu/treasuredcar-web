@@ -73,7 +73,7 @@ export default{
                 }
             );
             if (!transactionData.status === 200) return;
-            this.$router.go();
+            this.getData();
         }
     },
     async created(){

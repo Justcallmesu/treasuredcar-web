@@ -42,8 +42,6 @@ export default{
             const { data } = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?longitude=${this.car.location.coordinates[0]}&latitude=${this.car.location.coordinates[1]}`);
             this.city = data.city;
             this.locality = data.locality;
-
-            console.log(data);
         }
     }, 
     props:{

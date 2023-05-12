@@ -46,7 +46,7 @@ export default{
             const query = {};
 
             // Target URl
-            let url = `${process.env.VUE_APP_serverURL}/api/v1/car`;
+            let url = `${process.env.VUE_APP_serverURL}/api/v1/car?status=Posted`;
 
             if(this.brand) query.brand = this.brand;
 
