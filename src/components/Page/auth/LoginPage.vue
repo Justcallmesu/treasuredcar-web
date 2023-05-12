@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-5 h-full w-2/4 bg-slate-100 rounded-lg py-12 px-12">
-        <h1 class="text-3xl text-center font-bold tracking-wider">Masuk</h1>
+        <h1 class="text-3xl text-center font-bold tracking-wider">{{getTitle}}</h1>
         <div class="w-full flex flex-col gap-5 items-center">
             <div class="w-full flex flex-col items-center gap-5">
                 <div class="form-control">
@@ -59,6 +59,9 @@ export default{
                 return "text";
             }
             return "password";
+        },
+        getTitle(){
+            return this.$route.query.type === "seller" ? "Masuk Penjual" : "Masuk User";
         },
         getIcons(){
             if (this.isVisible){
