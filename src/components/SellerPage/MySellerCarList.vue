@@ -5,7 +5,7 @@
             <hr class="border-primary border-2"/>
         </div>
         <div class="w-full h-full py-10" v-if="carData.length">
-            <div v-if="carData.length" class="grid grid-cols-3">
+            <div v-if="carData.length" class="grid grid-cols-3 gap-x-10 gap-y-5">
                 <div class="w-full h-fit py-10 bg-primary text-white rounded-2xl overflow-hidden" v-for="car in carData" :key="car._id">
                     <div class="card-header">
                         <img :src="getImage(car.imageCover)">
@@ -69,7 +69,6 @@ export default{
             this.carData = Object.values(data.data);
         },
         async deleteCar(carId){
-            console.log(carId);
             const response = await axios.delete(`${process.env.VUE_APP_serverURL}/api/v1/car/${carId}`, {
                 headers: config.headers,
                 withCredentials: true

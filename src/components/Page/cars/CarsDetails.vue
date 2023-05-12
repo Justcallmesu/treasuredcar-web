@@ -16,7 +16,8 @@
                     <h1 class="text-3xl font-semibold">{{ car?.name }}</h1>
                     <CarSummary :car="car"/>
                     <div class="mt-8 w-full">
-                        <button class="w-full bg-primary py-5 rounded-lg text-2xl text-white">Buy</button>
+                        <button class="w-full bg-primary py-5 rounded-lg text-2xl text-white" v-if="getStatus" @click="buyCar()">Buy</button>
+                        <button class="w-full bg-primary py-5 rounded-lg text-2xl text-white" v-else disabled>SOLD</button>
                     </div>
                 </div>
             </summary>
@@ -68,6 +69,9 @@ export default{
                     return `${process.env.VUE_APP_serverURL}/cars/${this.car.image[index]}`;
                 }
             }
+        },
+        getStatus(){
+            return this.car?.status === "Posted";
         }
     },
     methods:{
@@ -81,6 +85,9 @@ export default{
         },
         goCarList(){
             this.$router.replace("/cars");
+        },
+        buyCar(){
+            this.$router.replace(`/cars/buy/${this.car._id}`)
         }
     }
 }
