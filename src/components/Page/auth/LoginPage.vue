@@ -74,6 +74,7 @@ export default{
         }
         
     },  
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         ...userMutations(["setUserId","setUserData"]),
         ...sellerMutations(["setIsSeller","setSellerData"]),
@@ -95,7 +96,6 @@ export default{
             this.setUserData(data.data);
 
             this.setUserId(true);
-            this.$router.replace("/");
         },
         async getSellerData(){
             const sellerData = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
@@ -110,7 +110,6 @@ export default{
             this.setSellerData(data.data);
 
             this.setIsSeller(true);
-            this.$router.replace("/");
         },
         async login(){
             this.resetError();
@@ -157,6 +156,12 @@ export default{
                 if (!(target === "seller")) this.getUserData();
                 else this.getSellerData()
 
+                this.setModalData({callback:()=>{
+                    this.$router.replace("/");
+                },title:"Login Success",message:"Login has successfully"});
+
+                this.setModalVisible(true);
+                
 
             }
         }

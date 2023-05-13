@@ -121,6 +121,7 @@ export default{
             description:""
         }
     },
+    inject:["setModalVisible","setModalData"],
     methods: {
         getLocation() {
             try {
@@ -163,18 +164,27 @@ export default{
                     formData.append("image", value);
                 })
             }
-
-            const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/car`,formData
-            ,
+            try{
+                const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/car`,formData
+                ,
             {
                 headers:{
                     "Content-Type":"multipart/form-data"
                 },
                 withCredentials:true
-            }
-            )
+            })
+            if (response.status === 201) {
+                    this.setModalData({
+                        callback: () => {
+                            this.$router.replace("/cars")
+                        }, title: "Car Posted", message: "Car has been posted Successfully"
+                    });
+                    this.setModalVisible(true);
 
-            if(response.status === 201) return this.$router.replace("/cars") 
+                }
+            }catch({response}){
+
+            }
             
         }
     }

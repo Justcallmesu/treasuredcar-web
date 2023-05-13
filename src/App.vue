@@ -5,7 +5,7 @@
     </transition>
   </router-view>
   <teleport to='body' >
-    <BaseModal v-if="isModalVisible" :setModalVisible="setModalVisible" :modalCallback="modalCallback" :modalTitle="modalTitle"/>  
+    <BaseModal v-if="isModalVisible" :setModalVisible="setModalVisible" :modalCallback="modalCallback" :modalTitle="modalTitle" :modalMessage="modalMessage"/>  
   </teleport>
 </template>
 
@@ -24,11 +24,11 @@ import axios from 'axios'
 export default{
   data(){
     return{
-      isModalVisible:true,
+      isModalVisible:false,
       modalCallback:()=>{},
+      modalMessage:"",
       modalTitle:""
     }
-    
   },
   provide(){
     return{
@@ -39,9 +39,10 @@ export default{
   methods:{
     ...userMutations(["setUserId", "setUserData"]),
     ...sellerMutations(["setIsSeller", "setSellerData"]),
-    setModalData({callback,title}){
+    setModalData({callback,title,message}){
       this.modalCallback = callback;
       this.modalTitle = title;
+      this.modalMessage = message;
     },
     setModalVisible(value){
       this.isModalVisible= value;
