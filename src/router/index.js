@@ -92,6 +92,11 @@ const routes = [
         path: "/auth/forgotPassword",
         component: () => import("../components/Page/auth/MyForgotPassword.vue")
       },
+      {
+        name: "changePassword",
+        path: "/auth/changePassword",
+        component: () => import("../components/Page/auth/MyChangePassword.vue")
+      },
     ]
   },
   {

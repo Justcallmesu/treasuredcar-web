@@ -44,10 +44,12 @@ export default{
     computed:{
         ...mapGetters(["getActions","getEmail"]),
         getURL() {
-            if (this.$route.query.type === "sellers") {
-                return "/auth/login?type=sellers"
+            return (path) => {
+                if (this.$route.query.type === "sellers") {
+                    return `${path}?type=sellers`
+                }
+                return path;
             }
-            return "/auth/login"
         }
     },
     methods:{
@@ -88,12 +90,12 @@ export default{
 
                 if(response.status === 200 && this.getActions === "register"){
                     this.setData({email:"",actions:""});
-                    this.$router.replace(this.getURL);
+                    this.$router.replace(this.getURL("/auth/login"));
                 }
 
                 if(response.status === 200 && this.getActions === "forgotPassword"){
-                    this.setData({email:"",actions:""});
-                    this.$router.replace(this.getURL);
+                    this.setData({email:this.getEmail,actions:"forgotPassword",otpCode});
+                    this.$router.replace(this.getURL(`/auth/changePassword`));
                 }
 
             }catch(error){
