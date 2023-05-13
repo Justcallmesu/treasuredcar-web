@@ -9,7 +9,7 @@
         <div class="grid grid-rows-1 grid-flow-col px-5 gap-10 mt-10 overflow-scroll pb-10">
             <BaseLinkCard :url="style" v-for="style of carsStyle" :key="style" class="px-4 py-4 border-black border-[1.2px] rounded-lg flex justify-center items-center">
                 <div class="w-40 flex justify-center cursor-pointer">
-                    <div class="w-full px-5" v-if="style !== 'OTHERS'">
+                    <div class="w-full px-5" v-if="style !== 'Other'">
                         <img :src="getImg(style)" :alt="style" class="object-contain aspect-[1/1]">
                         <h4 class="font-bold text-center text-xl">{{ style.split(".")[0] }}</h4>
                     </div>
@@ -36,7 +36,7 @@ export default {
                 "Sedan.png",
                 "Convertible.png",
                 "Wagon.png",
-                "OTHERS"
+                "Other"
             ]
         }
     },

@@ -99,7 +99,6 @@ export default{
                         withCredentials: true
                     })
                     
-                    console.log(response);
                     if (response.status === 201) {
                         this.setData({ email: null, actions: null ,otpCode:null})
                         this.$router.replace(this.getURL);

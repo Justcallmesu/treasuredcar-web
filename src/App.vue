@@ -4,6 +4,9 @@
       <component :is="Component"></component>
     </transition>
   </router-view>
+  <teleport to='body' >
+    <BaseModal v-if="isModalVisible" :setModalVisible="setModalVisible" :modalCallback="modalCallback" :modalTitle="modalTitle"/>  
+  </teleport>
 </template>
 
 <script>
@@ -17,12 +20,32 @@ const { mapMutations: userMutations} = createNamespacedHelpers("user");
 const { mapMutations: sellerMutations } = createNamespacedHelpers("seller");
 // NPM
 import axios from 'axios'
-import { onBeforeRouteUpdate } from 'vue-router';
 
 export default{
+  data(){
+    return{
+      isModalVisible:true,
+      modalCallback:()=>{},
+      modalTitle:""
+    }
+    
+  },
+  provide(){
+    return{
+      setModalVisible:this.setModalVisible,
+      setModalData:this.setModalData
+    }
+  },
   methods:{
     ...userMutations(["setUserId", "setUserData"]),
     ...sellerMutations(["setIsSeller", "setSellerData"]),
+    setModalData({callback,title}){
+      this.modalCallback = callback;
+      this.modalTitle = title;
+    },
+    setModalVisible(value){
+      this.isModalVisible= value;
+    },
     async getUserData(){
       try {
         const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/getCredentials`,

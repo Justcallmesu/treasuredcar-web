@@ -22,7 +22,10 @@
 
             <div class="form-control">
                 <label for="ATMT">AT/MT</label>
-                <input type="text" id="ATMT" class="form-input" v-model="ATMT">
+                <select id="brand" class="border-black border-2 rounded-lg" v-model="ATMT">
+                        <option value="AT">AT</option>
+                        <option value="MT">MT</option>
+                </select>
             </div>
             
             <div class="form-control">
@@ -170,6 +173,8 @@ export default{
                 withCredentials:true
             }
             )
+
+            if(response.status === 201) return this.$router.replace("/cars") 
             
         }
     }

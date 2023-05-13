@@ -8,6 +8,7 @@ import './assets/tailwind.css'
 import TheHeader from "./components/Layout/TheHeader.vue";
 import TheFooter from "./components/Layout/TheFooter.vue";
 import BaseCard from "./components/Base/BaseCard.vue";
+import BaseModal from "./components/Base/BaseModal.vue";
 
 
 // Instances
@@ -17,6 +18,7 @@ const app = createApp(App);
 app.component('TheHeader', TheHeader);
 app.component('TheFooter', TheFooter);
 app.component('BaseCard', BaseCard);
+app.component('BaseModal', BaseModal);
 
 // Plugins and Extensions
 app.use(router);

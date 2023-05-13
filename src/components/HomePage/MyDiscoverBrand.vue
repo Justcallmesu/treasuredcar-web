@@ -6,7 +6,7 @@
             <hr class="w-14 border-[0.1rem] border-black rounded-lg">
         </div>
         <h3 class="text-center font-bold text-2xl mt-4">DISCOVER BY <span class="text-primary">BRANDS</span></h3>
-        <div  class="grid grid-rows-1 grid-flow-col px-20 justify-center gap-10 mt-10">
+        <div  class="grid grid-rows-1 grid-flow-col justify-center gap-10 mt-10">
             <BaseLinkCard :url="brand" v-for="brand of brandName" :key="brand" class="px-14 py-4 border-black border-2 rounded-lg flex justify-center items-center">
                 <div class="w-14 flex justify-center cursor-pointer">
                     <div class="w-10">
