@@ -6,7 +6,8 @@ const otp = {
     state() {
         return {
             actions: "",
-            email: ""
+            email: "",
+            otpCode: ""
         }
     },
     getters,
