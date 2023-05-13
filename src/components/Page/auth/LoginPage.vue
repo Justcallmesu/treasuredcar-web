@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-5 h-full w-2/4 bg-slate-100 rounded-lg py-12 px-12">
-        <h1 class="text-3xl text-center font-bold tracking-wider">Masuk</h1>
+        <h1 class="text-3xl text-center font-bold tracking-wider">{{getTitle}}</h1>
         <div class="w-full flex flex-col gap-5 items-center">
             <div class="w-full flex flex-col items-center gap-5">
                 <div class="form-control">
@@ -20,9 +20,9 @@
             <div class="w-full text-sm flex flex-col gap-1">
                 <div class="flex justify-between">
                     <p class="font-bold">Belum punya akun ?</p>
-                    <router-link :to="{name:'forgotPassword'}" class="text-primary font-bold">Lupa Password ?</router-link>
+                    <router-link :to="{name:'forgotPassword',query: getQuery }" class="text-primary font-bold">Lupa Password ?</router-link>
                 </div>
-                <router-link :to="{name:'register'}" class="text-primary font-bold">Daftar</router-link>
+                <router-link :to="{name:'register',query:getQuery}" class="text-primary font-bold">Daftar</router-link>
             </div>
             <button class="form-button" @click="login()">Login</button>
         </div>
@@ -39,7 +39,8 @@ import emailvalidator from "email-validator";
 // Config
 import config from "../../../utils/config.js"
 
-const {mapMutations} = createNamespacedHelpers("otp");
+const {mapMutations:userMutations} = createNamespacedHelpers("user");
+const {mapMutations:sellerMutations} = createNamespacedHelpers("seller");
 
 export default{
     data(){
@@ -59,19 +60,57 @@ export default{
             }
             return "password";
         },
+        getTitle(){
+            return this.$route.query.type === "seller" ? "Masuk Penjual" : "Masuk User";
+        },
         getIcons(){
             if (this.isVisible){
                 return { "bi-eye-slash-fill" : true};
             }
             return {"bi-eye-fill":true};
+        },
+        getQuery(){
+            return this.$route.query;
         }
+        
     },  
     methods:{
-        ...mapMutations(["setData"]),
+        ...userMutations(["setUserId","setUserData"]),
+        ...sellerMutations(["setIsSeller","setSellerData"]),
         resetError(){
             this.emailError = "";
             this.passwordError = "";
             this.valid = true;
+        },
+        async getUserData(){
+            const userData = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
+                {
+                    withCredentials: true,
+                    headers: config.headers
+                }
+            );
+            if (!userData.status === 200) return
+
+            const { data } = userData;
+            this.setUserData(data.data);
+
+            this.setUserId(true);
+            this.$router.replace("/");
+        },
+        async getSellerData(){
+            const sellerData = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
+                {
+                    withCredentials: true,
+                    headers: config.headers
+                }
+            );
+            if (!sellerData.status === 200) return
+
+            const { data } = sellerData;
+            this.setSellerData(data.data);
+
+            this.setIsSeller(true);
+            this.$router.replace("/");
         },
         async login(){
             this.resetError();
@@ -97,8 +136,10 @@ export default{
             }
 
             if (this.valid){
+                const target = this.$route.query.type === "sellers" ? "seller":"user";
+
                 // Send user credentials to server and validate more there
-                const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/user/login`,
+                const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/${target}/login`,
                 {
                     email:this.email,
                     password:this.password
@@ -111,10 +152,12 @@ export default{
                 })
 
                 // Set Cookie value to the state management
-                if(response.status === 200){
-                    this.setUserId(true);
-                    this.$router.replace("/");
-                }               
+                if(!response.status === 200) return;
+
+                if (!(target === "seller")) this.getUserData();
+                else this.getSellerData()
+
+
             }
         }
     }

@@ -13,6 +13,16 @@
                 <p class="text-red-400">{{ emailError }}</p>
             </div>
             <div class="form-control">
+                <label for="address" class="font-bold">Masukkan Alamat</label>
+                <input type="text" class="form-input" id="address" placeholder="Address" v-model="address">
+                <p class="text-red-400">{{ nameError }}</p>
+            </div>
+            <div class="form-control">
+                <label for="email">Masukkan Nomor Telepon</label>
+                <input type="tel" class="form-input" id="email" placeholder="Phone Number" v-model="phoneNumber">
+                <p class="text-red-400">{{ emailError }}</p>
+            </div>
+            <div class="form-control">
                 <label for="password" class="font-bold">Masukkan Password</label>
                 <div class="w-full relative">
                     <i class="bi absolute right-4 top-2 cursor-pointer scale-150 text-gray-400" :class="getIcons" @click="isVisible = !isVisible"></i>
@@ -47,6 +57,9 @@ import axios from "axios";
 // Config
 import config from "../../../utils/config.js"
 
+import { createNamespacedHelpers } from 'vuex';
+const { mapMutations } = createNamespacedHelpers("otp");
+
 export default{
     data(){
         return{
@@ -58,6 +71,8 @@ export default{
             fullName:"",
             password:"",
             confirmPassword:"",
+            phoneNumber:"",
+            address:"",
             
             // Error
             passwordError:"",
@@ -80,11 +95,20 @@ export default{
                 return { "bi-eye-slash-fill": true };
             }
             return { "bi-eye-fill": true };
+        },
+        getOTP(){
+            if(this.$route.query.type === "sellers"){
+                return "/auth/otp?type=sellers"
+            }
+            return "/auth/otp"
         }
     },
     methods:{
+        ...mapMutations(["setData"]),
         async register(){
             this.isValid = true;
+            const path = this.$route.query.type?"seller":"user";
+            const isSeller = this.$route.query.type === "sellers";
             this.emailError = this.passwordError = this.nameError = "";
 
             if(!this.email || !this.fullName || !this.password || !this.confirmPassword){
@@ -113,21 +137,38 @@ export default{
                 this.passwordError = "Password and Confirm Password Doesnt Match";
             }
 
+            if(isSeller && !this.phoneNumber){
+                alert("Phone Number must filled");
+                this.isValid = false;
+            }
+
+            if(isSeller && !this.address){
+                alert("Address must filled");
+                this.isValid = false;
+            }
+
             if(this.isValid){
+                let body = {
+                    name: this.fullName,
+                    email: this.email,
+                    password: this.password,
+                    confirmPassword: this.confirmPassword
+                }
+
+                if (isSeller){
+                    body = {...body,phoneNumber:this.phoneNumber,address:this.address};
+                }
+
                 try{
-                    const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/user/register`,{
-                        name:this.fullName,
-                        email:this.email,
-                        password:this.password,
-                        confirmPassword:this.confirmPassword
-                    },
+                    const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/${path}/register`,body,
                     {
                         headers:config.headers,
                         withCredentials: true
                     })
 
                     if(response.status === 201){
-                        this.$router.replace({name:"login"});
+                        this.setData({email:this.email,actions:"register"})
+                        this.$router.replace(this.getOTP);
                     }
                 }catch({response}){
                     if(response.status !== 200 && response.data.message.match(/email/ig)){

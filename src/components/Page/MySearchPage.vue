@@ -1,5 +1,5 @@
 <template>
-       <div class="py-10 pt-[8rem] px-5 bg-gray-600 min-h-screen">
+        <div class="py-10 pt-[8rem] px-5 bg-gray-600 min-h-screen">
         <h1 class="before:inline-block before:absolute before:-top-3 
         before:h-1 before:w-16 before:content-[''] before:bg-black 
         font-semibold tracking-[0.2rem] text-3xl font-bebasNeue relative">We Provide <span class="text-primary">Second <br/> Cars</span> For Purchase</h1>

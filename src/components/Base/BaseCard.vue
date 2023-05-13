@@ -1,11 +1,11 @@
 <template>
     <div class="w-full h-80 bg-white rounded-2xl overflow-hidden">
         <div class="card-header">
-            <img :src="getImage" alt="">
+            <img :src="getImage">
         </div>
         <div class="card-content">
             <div class="flex justify-between font-semibold">
-                <h4 class="text-xl">{{ cardData.name }}</h4>
+                <h4 class="text-xl">{{ cardData.model }}</h4>
                 <h4 class="text-lg">Rp {{ cardData.price.toLocaleString("id-ID") }}</h4>
             </div>
             <div class="flex justify-between items-center">

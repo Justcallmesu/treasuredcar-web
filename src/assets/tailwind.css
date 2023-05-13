@@ -14,6 +14,10 @@
 	html {
 		@apply p-0 m-0 min-h-screen font-poppins;
 	}
+	-webkit-scrollbar,
+	-webkit-scrollbar-track {
+		display: block !important;
+	}
 }
 
 @layer components {
@@ -26,7 +30,7 @@
 
 	/* Card */
 	.card-header {
-		@apply w-full h-52;
+		@apply max-w-full h-52;
 	}
 
 	.card-header > img {
@@ -43,11 +47,16 @@
 	}
 
 	.form-input {
-		@apply h-10 w-full py-3 px-2 rounded-md bg-slate-300 outline-none text-[#7B8FA1];
+		@apply h-10 w-full py-3 px-2 rounded-md bg-slate-300 outline-none text-black;
 	}
 
 	.form-button {
 		@apply bg-primary w-1/2 lg:w-2/3 py-1 rounded-lg text-white;
+	}
+
+	.form-input::-webkit-outer-spin-button,
+	.form-input::-webkit-inner-spin-button {
+		@apply appearance-none m-0;
 	}
 
 	/* otp */
@@ -55,10 +64,12 @@
 		@apply w-16 h-16 rounded-lg text-center text-2xl bg-slate-300;
 	}
 
-	/* Btn */
+	/* Button */
 	.btn__cta {
 		@apply bg-primary px-5 py-2 rounded-xl text-white;
 	}
+
+	/* Car Collage */
 }
 
 @layer utilities {
@@ -75,12 +86,24 @@
 	}
 
 	/* Menu Class Utilities */
-	nav.bottom-navbar div a {
-		@apply transition-all duration-1000 fill-white p-3 absolute left-0 -top-2 border-none;
+	.userPage-link {
+		@apply relative opacity-70;
 	}
 
-	nav.bottom-navbar div a.router-link-exact-active {
-		@apply bg-white rounded-full fill-primary -translate-y-8 box-border text-primary;
+	a.profile {
+		@apply opacity-100 after:content-[''] after:w-[0.2rem] after:h-5 after:bg-white after:absolute after:-right-10;
+	}
+
+	a.header {
+		@apply text-primary relative after:content-[''] after:w-full after:h-[0.2rem] after:bg-primary after:absolute after:-bottom-6 after:right-0;
+	}
+
+	a.footer {
+		@apply text-white relative after:content-[''] after:w-full after:h-[0.2rem] after:bg-white after:absolute after:-bottom-6 after:right-0;
+	}
+
+	footer a {
+		@apply text-white;
 	}
 
 	/* Vertical Text */
@@ -93,5 +116,10 @@
 	/* Car Details Image Collage */
 	.image-collage-active {
 		@apply border-primary border-[3px];
+	}
+
+	/* Selected */
+	.selected {
+		@apply bg-primary text-white;
 	}
 }

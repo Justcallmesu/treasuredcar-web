@@ -54,6 +54,9 @@ export default{
                 this.setData();
             }
         }
+    },
+    async created(){
+        await this.setData();
     }
 }
 </script>
