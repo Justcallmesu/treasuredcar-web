@@ -66,11 +66,14 @@ export default{
             return `${process.env.VUE_APP_serverURL}/sellers/${this.getSellerData.photo}`;
         }
     },
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         ...mapMutations(["setSellerData"]),
         async updateSeller(){
             if (!this.email || !this.fullName || !this.phoneNumber || !this.address){
-                return console.log("No Empty");
+                this.setModalData({ callback: () => {}, title: "Update Seller", message: "Data Tidak Boleh Kosong" });
+                this.setModalVisible(true);
+                return;
             }
 
             const formData = new FormData();

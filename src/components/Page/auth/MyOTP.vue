@@ -52,6 +52,7 @@ export default{
             }
         }
     },
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         ...mapMutations(["setData"]),
         changeFocus(){
@@ -89,13 +90,20 @@ export default{
                 });
 
                 if(response.status === 200 && this.getActions === "register"){
-                    this.setData({email:"",actions:""});
-                    this.$router.replace(this.getURL("/auth/login"));
+                    this.setModalData({ callback: () => { 
+                        this.setData({ email: "", actions: "" });
+                        this.$router.replace(this.getURL("/auth/login"));
+                    }, title: "Aktifkan Akun", message: "Akun berhasil Diaktifkan" });
+                    
+                    this.setModalVisible(true);
                 }
 
                 if(response.status === 200 && this.getActions === "forgotPassword"){
-                    this.setData({email:this.getEmail,actions:"forgotPassword",otpCode});
-                    this.$router.replace(this.getURL(`/auth/changePassword`));
+                    this.setModalData({ callback: () => { 
+                        this.setData({ email: this.getEmail, actions: "forgotPassword", otpCode });
+                        this.$router.replace(this.getURL(`/auth/changePassword`));
+                    }, title: "Lupa Password", message: "OTP Cocok, Silakan Ganti password" });
+                    this.setModalVisible(true);
                 }
 
             }catch(error){

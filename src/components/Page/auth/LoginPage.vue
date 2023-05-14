@@ -61,7 +61,7 @@ export default{
             return "password";
         },
         getTitle(){
-            return this.$route.query.type === "seller" ? "Masuk Penjual" : "Masuk User";
+            return this.$route.query.type === "sellers" ? "Masuk Penjual" : "Masuk User";
         },
         getIcons(){
             if (this.isVisible){
@@ -128,7 +128,7 @@ export default{
                 this.emailError ="Invalid Email"
                 this.valid = false;
             }
-
+            
             if (this.password && this.password.length < 8){
                 this.passwordError = "Password length must 8 or more characters"
                 this.valid = false;
@@ -147,11 +147,13 @@ export default{
                     headers:config.headers,
                     withCredentials:true
                 }).catch(({response})=>{
-                    this.passwordError = this.emailError= response.data.message;
+                    this.passwordError = this.emailError = response.data.message;
+                    return;
                 })
 
+                if(!response) return;
                 // Set Cookie value to the state management
-                if(!response.status === 200) return;
+                if(response.status !== 200) return;
 
                 if (!(target === "seller")) this.getUserData();
                 else this.getSellerData()
@@ -162,7 +164,6 @@ export default{
 
                 this.setModalVisible(true);
                 
-
             }
         }
     }

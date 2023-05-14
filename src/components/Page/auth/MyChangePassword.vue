@@ -110,7 +110,6 @@ export default{
                         this.setModalVisible(true);
                     }
                 } catch(error) {
-                    console.log(error);
                 }
             }
         }

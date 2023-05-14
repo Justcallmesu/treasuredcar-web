@@ -46,9 +46,14 @@ export default{
             cashType:""
         }
     },
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         async buyCar(){
-            if(!this.cashType) return;
+            if(!this.cashType) {
+                this.setModalData({ callback: () => {}, title: "Beli Mobil", message: "Metode Bayar Harus Dipilih" });
+                this.setModalVisible(true);
+                return;
+            }
 
             const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/car/${this.$route.params._id}/transactions`,{
                 type:this.cashType
@@ -60,7 +65,8 @@ export default{
             );
             
             if(response.status === 200) {
-                this.$router.replace("/");
+                this.setModalData({callback:()=>{this.$router.replace("/")},title:"Buy Car",message:"Car has been buy successfully"});
+                this.setModalVisible(true);
             }
 
         }

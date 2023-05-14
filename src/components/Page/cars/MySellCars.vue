@@ -143,6 +143,8 @@ export default{
         },
         async postCar(){
             if(!this.price || !this.year || !this.cc || !this.plateNumber || !this.model || !this.ATMT || !this.selectedStyle || !this.selectedBrand || !this.description) {
+                this.setModalData({ callback: () => { }, title: "Jual Mobil", message: "Data Harus Diisi" });
+                this.setModalVisible(true);
                 return;
             }
 

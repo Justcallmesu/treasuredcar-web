@@ -57,6 +57,7 @@ export default{
             carData:[]
         }
     },
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         async getCar() {
             const response = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/car?sellerId=${this.sellerId}`, {
@@ -69,18 +70,27 @@ export default{
             this.carData = Object.values(data.data);
         },
         async deleteCar(carId){
-            const response = await axios.delete(`${process.env.VUE_APP_serverURL}/api/v1/car/${carId}`, {
-                headers: config.headers,
-                withCredentials: true
-            })
 
-            if(response.status === 204) return this.getCar();
+            this.setModalData({callback:()=>{},
+            title:"Delete Car",
+            message:"Do You Want To Delete This Car ?",
+            modalYesNo:true,
+            yesCallback:async ()=>{
+                const response = await axios.delete(`${process.env.VUE_APP_serverURL}/api/v1/car/${carId}`, {
+                        headers: config.headers,
+                        withCredentials: true
+                    })
+
+                    if (response.status === 204) return this.getCar();
+            }});
+            this.setModalVisible(true);
         }
     },
     computed:{
         getImage() {
             return (url) => {
-                return `${process.env.VUE_APP_serverURL}/cars/${url}`;
+                if(url)return `${process.env.VUE_APP_serverURL}/cars/${url}`;
+                return `${process.env.VUE_APP_serverURL}/cars/car-default.png`;
             }
         },
     },

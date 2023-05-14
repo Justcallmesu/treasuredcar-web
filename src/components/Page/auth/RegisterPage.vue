@@ -12,15 +12,17 @@
                 <input type="email" class="form-input" id="email" placeholder="Example@gmail.com" v-model="email">
                 <p class="text-red-400">{{ emailError }}</p>
             </div>
-            <div class="form-control">
-                <label for="address" class="font-bold">Masukkan Alamat</label>
-                <input type="text" class="form-input" id="address" placeholder="Address" v-model="address">
-                <p class="text-red-400">{{ nameError }}</p>
-            </div>
-            <div class="form-control">
-                <label for="email">Masukkan Nomor Telepon</label>
-                <input type="tel" class="form-input" id="email" placeholder="Phone Number" v-model="phoneNumber">
-                <p class="text-red-400">{{ emailError }}</p>
+            <div v-if="this.$route.query.type === 'sellers'">
+                <div class="form-control">
+                    <label for="address" class="font-bold">Masukkan Alamat</label>
+                    <input type="text" class="form-input" id="address" placeholder="Address" v-model="address">
+                    <p class="text-red-400">{{ nameError }}</p>
+                </div>
+                <div class="form-control">
+                    <label for="email">Masukkan Nomor Telepon</label>
+                    <input type="tel" class="form-input" id="email" placeholder="Phone Number" v-model="phoneNumber">
+                    <p class="text-red-400">{{ emailError }}</p>
+                </div>
             </div>
             <div class="form-control">
                 <label for="password" class="font-bold">Masukkan Password</label>
@@ -103,6 +105,7 @@ export default{
             return "/auth/otp"
         }
     },
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         ...mapMutations(["setData"]),
         async register(){
@@ -167,8 +170,12 @@ export default{
                     })
 
                     if(response.status === 201){
-                        this.setData({email:this.email,actions:"register"})
-                        this.$router.replace(this.getOTP);
+                        this.setModalData({ callback: () => {
+                            this.setData({ email: this.email, actions: "register" })
+                            this.$router.replace(this.getOTP);
+                        }, title: "Register", message: "Register Berhasil, OTP Dikirim Ke email, aktifkan akunmu" });
+                        this.setModalVisible(true);
+                        
                     }
                 }catch({response}){
                     if(response.status !== 200 && response.data.message.match(/email/ig)){

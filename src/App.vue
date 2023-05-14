@@ -5,7 +5,7 @@
     </transition>
   </router-view>
   <teleport to='body' >
-    <BaseModal v-if="isModalVisible" :setModalVisible="setModalVisible" :modalCallback="modalCallback" :modalTitle="modalTitle" :modalMessage="modalMessage"/>  
+    <BaseModal v-if="isModalVisible" :setModalVisible="setModalVisible" :modalCallback="modalCallback" :modalTitle="modalTitle" :modalMessage="modalMessage" :modalYesNo="modalYesNo" :yesCallback="yesCallback" :noCallback="noCallback"/>  
   </teleport>
 </template>
 
@@ -27,7 +27,10 @@ export default{
       isModalVisible:false,
       modalCallback:()=>{},
       modalMessage:"",
-      modalTitle:""
+      modalTitle:"",
+      modalYesNo:false,
+      yesCallback:()=>{},
+      noCallback: null
     }
   },
   provide(){
@@ -39,10 +42,13 @@ export default{
   methods:{
     ...userMutations(["setUserId", "setUserData"]),
     ...sellerMutations(["setIsSeller", "setSellerData"]),
-    setModalData({callback,title,message}){
+    setModalData({callback,title,message ,modalYesNo = false,yesCallback = ()=>{},NoCallback = ()=>{}}){
       this.modalCallback = callback;
       this.modalTitle = title;
       this.modalMessage = message;
+      this.modalYesNo = modalYesNo;
+      this.yesCallback = yesCallback;
+      this.noCallback = NoCallback;
     },
     setModalVisible(value){
       this.isModalVisible= value;

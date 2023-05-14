@@ -24,7 +24,7 @@
             <article class="w-full min-h-[10rem] shadow-xl p-10">
                 <h1 class="text-2xl font-bold">Description</h1>
                 <div class="mt-5">
-                    <p>{{ car?.description }}</p>
+                    <p class="whitespace-pre-line">{{ car?.description }}</p>
                 </div>
             </article>
         </div>
