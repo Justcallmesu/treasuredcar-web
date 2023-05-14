@@ -61,7 +61,7 @@ export default{
             return "password";
         },
         getTitle(){
-            return this.$route.query.type === "seller" ? "Masuk Penjual" : "Masuk User";
+            return this.$route.query.type === "sellers" ? "Masuk Penjual" : "Masuk User";
         },
         getIcons(){
             if (this.isVisible){
@@ -74,6 +74,7 @@ export default{
         }
         
     },  
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         ...userMutations(["setUserId","setUserData"]),
         ...sellerMutations(["setIsSeller","setSellerData"]),
@@ -95,7 +96,6 @@ export default{
             this.setUserData(data.data);
 
             this.setUserId(true);
-            this.$router.replace("/");
         },
         async getSellerData(){
             const sellerData = await axios.get(`${process.env.VUE_APP_serverURL}/api/v1/user/me`,
@@ -110,7 +110,6 @@ export default{
             this.setSellerData(data.data);
 
             this.setIsSeller(true);
-            this.$router.replace("/");
         },
         async login(){
             this.resetError();
@@ -129,7 +128,7 @@ export default{
                 this.emailError ="Invalid Email"
                 this.valid = false;
             }
-
+            
             if (this.password && this.password.length < 8){
                 this.passwordError = "Password length must 8 or more characters"
                 this.valid = false;
@@ -148,16 +147,23 @@ export default{
                     headers:config.headers,
                     withCredentials:true
                 }).catch(({response})=>{
-                    this.passwordError = this.emailError= response.data.message;
+                    this.passwordError = this.emailError = response.data.message;
+                    return;
                 })
 
+                if(!response) return;
                 // Set Cookie value to the state management
-                if(!response.status === 200) return;
+                if(response.status !== 200) return;
 
                 if (!(target === "seller")) this.getUserData();
                 else this.getSellerData()
 
+                this.setModalData({callback:()=>{
+                    this.$router.replace("/");
+                },title:"Login Success",message:"Login has successfully"});
 
+                this.setModalVisible(true);
+                
             }
         }
     }

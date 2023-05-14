@@ -22,7 +22,10 @@
 
             <div class="form-control">
                 <label for="ATMT">AT/MT</label>
-                <input type="text" id="ATMT" class="form-input" v-model="ATMT">
+                <select id="brand" class="border-black border-2 rounded-lg" v-model="ATMT">
+                        <option value="AT">AT</option>
+                        <option value="MT">MT</option>
+                </select>
             </div>
             
             <div class="form-control">
@@ -118,6 +121,7 @@ export default{
             description:""
         }
     },
+    inject:["setModalVisible","setModalData"],
     methods: {
         getLocation() {
             try {
@@ -139,6 +143,8 @@ export default{
         },
         async postCar(){
             if(!this.price || !this.year || !this.cc || !this.plateNumber || !this.model || !this.ATMT || !this.selectedStyle || !this.selectedBrand || !this.description) {
+                this.setModalData({ callback: () => { }, title: "Jual Mobil", message: "Data Harus Diisi" });
+                this.setModalVisible(true);
                 return;
             }
 
@@ -160,16 +166,27 @@ export default{
                     formData.append("image", value);
                 })
             }
-
-            const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/car`,formData
-            ,
+            try{
+                const response = await axios.post(`${process.env.VUE_APP_serverURL}/api/v1/car`,formData
+                ,
             {
                 headers:{
                     "Content-Type":"multipart/form-data"
                 },
                 withCredentials:true
+            })
+            if (response.status === 201) {
+                    this.setModalData({
+                        callback: () => {
+                            this.$router.replace("/cars")
+                        }, title: "Car Posted", message: "Car has been posted Successfully"
+                    });
+                    this.setModalVisible(true);
+
+                }
+            }catch({response}){
+
             }
-            )
             
         }
     }

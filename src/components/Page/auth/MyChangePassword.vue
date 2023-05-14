@@ -63,6 +63,7 @@ export default{
             return "password";
         },
     },
+    inject: ["setModalVisible", "setModalData"],
     methods:{
         ...mapMutations(["setData"]),
         async changePassword(){
@@ -99,13 +100,16 @@ export default{
                         withCredentials: true
                     })
                     
-                    console.log(response);
                     if (response.status === 201) {
-                        this.setData({ email: null, actions: null ,otpCode:null})
-                        this.$router.replace(this.getURL);
+                        this.setModalData({
+                            callback: () => {
+                                this.setData({ email: null, actions: null, otpCode: null })
+                                this.$router.replace(this.getURL);
+                            }, title: "Password Change", message: "Password Changed Successfully"
+                        });
+                        this.setModalVisible(true);
                     }
                 } catch(error) {
-                    console.log(error);
                 }
             }
         }

@@ -58,7 +58,9 @@ export default{
         ...mapMutations(["setUserData"]),
         async updateUser(){
             if (!this.email || !this.fullName){
-                return console.log("No Empty");
+                this.setModalData({ callback: () => { }, title: "Update Seller", message: "Data Tidak Boleh Kosong" });
+                this.setModalVisible(true);
+                return;
             }
 
             const formData = new FormData();
